@@ -56,6 +56,23 @@ linear-gradient(120deg,var(--dark) 0%,color-mix(in srgb,var(--ac2) 32%,var(--dar
 .price{font-size:1.7rem;font-weight:800;color:var(--ac)}
 .arw{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:var(--ac2);color:#fff;font-size:1.2rem;cursor:pointer;z-index:3;box-shadow:0 6px 16px rgba(0,0,0,.25)}
 .arw.l{left:max(8px,calc((100% - 1260px)/2))}.arw.r{right:max(8px,calc((100% - 1260px)/2))}
+/* SALTOS DE LINEA (Enter en el panel admin) */
+.card p,.hero p,.intro p,.promo p,.works-s{white-space:pre-line}
+/* TRABAJOS */
+.works{padding:70px 0 30px;text-align:center}
+.works h2{font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.02em}
+.works h2 span{color:var(--ac2)}
+.works-s{font-size:1.1rem;color:#444;margin:14px auto 0;max-width:680px;line-height:1.55}
+.wg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:40px;text-align:left}
+.wk{position:relative;border:0;padding:0;border-radius:20px;overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;background:var(--dark);box-shadow:0 12px 30px rgba(0,0,0,.14);display:block;width:100%;color:#fff;font:inherit}
+.wk img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .6s}
+.wk:hover img{transform:scale(1.06)}
+.wk span{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;font-weight:700;font-size:1rem;background:linear-gradient(180deg,transparent,rgba(6,14,24,.92))}
+.lb{position:fixed;inset:0;background:rgba(4,10,18,.92);z-index:50;display:none;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:12px}
+.lb.on{display:flex}
+.lb img{max-width:100%;max-height:82vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.lb p{color:#d5e3ee;font-weight:600}
+.lb button{position:absolute;top:16px;right:18px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:1.3rem;cursor:pointer}
 /* PROMO */
 .promo{background:var(--dark);color:#fff;border-radius:28px;padding:56px;margin:30px auto 80px;display:flex;align-items:center;gap:36px;background:linear-gradient(120deg,var(--dark),color-mix(in srgb,var(--ac) 30%,var(--dark)))}
 .promo .lg{width:130px;height:130px;border-radius:26px;flex-shrink:0}
@@ -70,16 +87,11 @@ section[id],.hero{scroll-margin-top:0}
 @media(max-width:860px){.hero .wrap{grid-template-columns:1fr;padding:70px 0 80px;text-align:center}.hero p{margin-inline:auto}.hero .lg{margin-inline:auto}.hero .img{max-width:460px;margin:auto}.promo{flex-direction:column;text-align:center;padding:36px 22px}.arw{display:none}}
 @media(max-width:620px){.hero{min-height:0}}
 </style>
-
 <meta property="og:type" content="website">
-<meta property="og:title" content="WEBS JOEL // Diseño Web &amp; Desarrollo">
-<meta property="og:description" content="Webs Joel: diseño web y desarrollo con estilos premium y animaciones modernas. Pide tu sitio web por WhatsApp.">
-<meta property="og:url" content="https://joels09.github.io/Websjoel/">
-<meta property="og:image" content="https://joels09.github.io/Websjoel/og-image.jpg?v=1">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:title" content="WEBS JOEL // Diseño Web & Desarrollo">
+<meta property="og:description" content="Webs Joel: diseño web y desarrollo con estilos premium.">
+<meta property="og:image" content="og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://joels09.github.io/Websjoel/og-image.jpg?v=1">
 </head>
 <body>
 <header class="hero" id="inicio">
@@ -92,6 +104,8 @@ section[id],.hero{scroll-margin-top:0}
 <section class="intro" id="planes"><div class="wrap"><h2 id="it"></h2><p id="is"></p></div>
  <div class="cw"><button class="arw l" aria-label="Anterior">‹</button><div class="car" id="car"></div><button class="arw r" aria-label="Siguiente">›</button></div>
 </section>
+<section class="works" id="trabajos" style="display:none"><div class="wrap"><h2 id="wt"></h2><p class="works-s" id="ws"></p><div class="wg" id="wg"></div></div></section>
+<div class="lb" id="lb"><button aria-label="Cerrar">✕</button><img alt=""><p></p></div>
 <section id="contacto"><div class="wrap"><div class="promo"><img class="lg" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Logo">
  <div><h5 id="pt"></h5><h2 id="ph"></h2><p id="pp"></p><div class="sel" id="sel"></div><a href="#planes" class="pill off" id="pb"></a></div></div></div></section>
 <footer id="ft"></footer>
@@ -122,6 +136,13 @@ fetch('content.json?v='+Date.now()).then(function(r){return r.json()}).then(func
   b.href=u;b.target='_blank';b.rel='noopener';b.classList.remove('off');f.href=u;f.target='_blank';f.rel='noopener'}
  q('.pick').forEach(function(a){a.onclick=function(){sel=+a.closest('.card').dataset.i;q('.card').forEach(function(d){d.classList.toggle('on',+d.dataset.i===sel)});upd()}});
  upd();
+
+ var wk=c.works||{},wi=(wk.items||[]).filter(function(w){return w.visible!==false&&w.image});
+ if(wi.length){$('trabajos').style.display='';$('wt').innerHTML=hl(wk.title||'Nuestros [[trabajos]]');$('ws').textContent=wk.subtitle||'';
+  $('wg').innerHTML=wi.map(function(w,n){return'<button class="wk" data-n="'+n+'"><img src="'+esc(w.image)+'" alt="'+esc(w.title||'Trabajo')+'" loading="lazy">'+(w.title?'<span>'+esc(w.title)+'</span>':'')+'</button>'}).join('');
+  var lb=$('lb'),li=lb.querySelector('img'),lt=lb.querySelector('p');
+  q('.wk').forEach(function(b){b.onclick=function(){var w=wi[+b.dataset.n];li.src=w.image;lt.textContent=w.title||'';lb.classList.add('on')}});
+  lb.onclick=function(){lb.classList.remove('on')};document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('on')})}
  $('ft').innerHTML='© '+new Date().getFullYear()+' '+esc(c.footer);
  var w=c.waButton||{},wb=$('wab');if(w.visible===false)wb.style.display='none';else{if(w.icon)$('wai').src=w.icon;if(w.background)wb.style.background=w.background;var z=parseInt(w.size);if(z>=30&&z<=120)wb.style.width=wb.style.height=z+'px'}
  q('.arw').forEach(function(a){a.onclick=function(){$('car').scrollBy({left:(a.classList.contains('r')?1:-1)*390,behavior:'smooth'})}});

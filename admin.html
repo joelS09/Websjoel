@@ -65,7 +65,7 @@ function api(path,o){o=o||{};var u='https://api.github.com/repos/'+$('owner').va
 function b64(s){return btoa(unescape(encodeURIComponent(s)))}
 function unb64(s){return decodeURIComponent(escape(atob(s.replace(/\n/g,''))))}
 /* Editor automático: dibuja un campo por cada dato de content.json (todo lo que agregues allí aparece aquí) */
-var ogDirty=0,L={message:'Mensaje de WhatsApp para este plan (puedes usar {plan} y {precio})',empty:'Texto mientras no hay plan elegido',selected:'Texto de "Plan elegido"',change:'Texto del enlace para cambiar de plan',waButton:'Botón circular de contacto (WhatsApp)',icon:'Imagen del botón',background:'Color de fondo del botón',size:'Tamaño en píxeles (ej. 48)',shareImage:'Imagen destacada (la que se ve al compartir el enlace)',url:'Dirección del sitio (opcional; solo si usas dominio propio, ej. https://miweb.com)',site:'Sitio (pestaña y Google)',brand:'Marca y logo',nav:'Menú',hero:'Portada',intro:'Título de la sección de planes',plans:'Planes',promo:'Banner de oferta',theme:'Colores',title:'Título',text:'Texto',button:'Botón',image:'Imagen',logo:'Logo (se usa también como icono de la pestaña)',name:'Nombre',price:'Precio',desc:'Descripción',badge:'Etiqueta',visible:'Mostrar en la web',label:'Texto',target:'Enlace (#planes, #contacto…)',whatsapp:'WhatsApp (solo números, con código de país)',waMessage:'Mensaje general de WhatsApp (se usa si un plan no tiene mensaje propio)',footer:'Pie de página',headerButton:'Botón del encabezado',plansButton:'Botón de cada plan',accent:'Color principal',accent2:'Color secundario',dark:'Color de fondo oscuro',eyebrow:'Texto pequeño superior',subtitle:'Subtítulo',description:'Descripción para Google',contain:'Mostrar imagen completa (sin recortar)',name1:'Nombre (parte blanca)',name2:'Nombre (parte de color)',tag:'Etiqueta'};
+var ogDirty=0,L={message:'Mensaje de WhatsApp para este plan (puedes usar {plan} y {precio})',empty:'Texto mientras no hay plan elegido',selected:'Texto de "Plan elegido"',change:'Texto del enlace para cambiar de plan',waButton:'Botón circular de contacto (WhatsApp)',icon:'Imagen del botón',background:'Color de fondo del botón',size:'Tamaño en píxeles (ej. 48)',shareImage:'Imagen destacada (la que se ve al compartir el enlace)',url:'Dirección del sitio (opcional; solo si usas dominio propio, ej. https://miweb.com)',site:'Sitio (pestaña y Google)',brand:'Marca y logo',nav:'Menú',hero:'Portada',intro:'Título de la sección de planes',plans:'Planes',promo:'Banner de oferta',theme:'Colores',title:'Título',text:'Texto',button:'Botón',image:'Imagen',logo:'Logo (se usa también como icono de la pestaña)',name:'Nombre',price:'Precio',desc:'Descripción',badge:'Etiqueta',visible:'Mostrar en la web',label:'Texto',target:'Enlace (#planes, #contacto…)',whatsapp:'WhatsApp (solo números, con código de país)',waMessage:'Mensaje general de WhatsApp (se usa si un plan no tiene mensaje propio)',footer:'Pie de página',headerButton:'Botón del encabezado',plansButton:'Botón de cada plan',accent:'Color principal',accent2:'Color secundario',dark:'Color de fondo oscuro',eyebrow:'Texto pequeño superior',subtitle:'Subtítulo',description:'Descripción para Google',contain:'Mostrar imagen completa (sin recortar)',name1:'Nombre (parte blanca)',name2:'Nombre (parte de color)',tag:'Etiqueta',works:'Nuestros trabajos',items:'Trabajos (agrega una imagen por cada trabajo con + Agregar)'};
 function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function loadImg(f,cb){var im=new Image();im.onload=function(){cb(im)};im.onerror=function(){say('No se pudo leer esa imagen','er')};im.src=URL.createObjectURL(f)}
 function enc(im,w,sq){var c=document.createElement('canvas'),x,h;
@@ -75,7 +75,7 @@ function enc(im,w,sq){var c=document.createElement('canvas'),x,h;
 function field(o,k,box){var v=o[k],lab=el('label','',L[k]||k),i;
  if(typeof v==='boolean'){lab.className='chk';i=el('input');i.type='checkbox';i.checked=v;i.onchange=function(){o[k]=i.checked};lab.prepend(i);box.append(lab);return}
  box.append(lab);
- if(k==='image'||k==='logo'||k==='shareImage'||k==='icon'){var im=el('img','pv');im.src=v;i=el('input');i.type='file';i.accept='image/*';i.onchange=function(){var f=i.files[0];if(f)loadImg(f,function(x){o[k]=k==='shareImage'?encOG(x):enc(x,k==='icon'?128:k==='logo'?192:800,k==='logo'||k==='icon');if(k==='shareImage'){ogDirty=1;o._v=Date.now()}im.src=o[k]})};box.append(im,i);return}
+ if(k==='image'||k==='logo'||k==='shareImage'||k==='icon'){var im=el('img','pv');if(v)im.src=v;else im.style.display='none';i=el('input');i.type='file';i.accept='image/*';i.onchange=function(){var f=i.files[0];if(f)loadImg(f,function(x){o[k]=k==='shareImage'?encOG(x):enc(x,k==='icon'?128:k==='logo'?192:800,k==='logo'||k==='icon');if(k==='shareImage'){ogDirty=1;o._v=Date.now()}im.src=o[k];im.style.display='block'})};box.append(im,i);return}
  if(/^#[0-9a-f]{6}$/i.test(v)){i=el('input');i.type='color';i.value=v;i.oninput=function(){o[k]=i.value};box.append(i);return}
  i=el(v.length>60||/text|desc|subtitle|message/i.test(k)?'textarea':'input');i.value=v;i.oninput=function(){o[k]=i.value};box.append(i)}
 function blank(o){var r={};for(var k in o)r[k]=typeof o[k]==='string'?'':o[k];return r}
@@ -96,6 +96,11 @@ function ea(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/"/g,'&
 function base(){var u=((cfg.site&&cfg.site.url)||'').trim(),o=$('owner').value.trim().toLowerCase(),r=$('repo').value.trim();if(!u)u='https://'+o+'.github.io/'+(r.toLowerCase()===o+'.github.io'?'':r+'/');return u.replace(/\/?$/,'/')}
 function getF(p){return api(p).then(function(j){return j},function(){return null})}
 function putF(p,c,m,s){var o={message:m,content:c,branch:$('branch').value.trim()};if(s)o.sha=s;return api(p,{method:'PUT',body:JSON.stringify(o)})}
+/* Trabajos: cada imagen nueva se sube como archivo (carpeta trabajos/) y en content.json solo queda su ruta */
+function worksUp(){var it=(cfg.works&&cfg.works.items)||[],p=Promise.resolve(),n=0;
+ it.forEach(function(w,i){if(w.image&&w.image.indexOf('data:')===0){p=p.then(function(){n++;say('Subiendo imagen '+n+'…','inf');
+  var path='trabajos/'+Date.now()+'-'+i+'.webp';return putF(path,w.image.split(',')[1],'Admin: imagen de trabajo').then(function(){w.image=path})})}});
+ return p}
 /* Imagen destacada: sube og-image.jpg y deja en index.html las etiquetas con la dirección completa (WhatsApp, Facebook, etc. no leen content.json) */
 function share(){var s=cfg.site||{};if(!s.shareImage)return Promise.resolve();
  return getF('og-image.jpg').then(function(f){if(f&&!ogDirty)return;return putF('og-image.jpg',s.shareImage.split(',')[1],'Admin: imagen destacada',f&&f.sha).then(function(){ogDirty=0})})
@@ -107,11 +112,11 @@ $('btnLoad').onclick=function(){say('Conectando…','inf');api('content.json').t
  localStorage.setItem('wj_admin',JSON.stringify({owner:$('owner').value.trim(),repo:$('repo').value.trim(),branch:$('branch').value.trim(),token:$('token').value.trim()}));
  $('editor').style.display='block';$('btnSave').disabled=false;if(cfg.brand&&cfg.brand.logo)$('hdrLogo').src=cfg.brand.logo;draw();say('Conectado. Ya puedes editar.','ok')}).catch(function(e){say(e.message,'er')})};
 $('btnOut').onclick=function(){localStorage.removeItem('wj_admin');$('token').value='';say('Token borrado de este equipo','ok')};
-$('btnSave').onclick=function(){if(!cfg)return;var txt=JSON.stringify(cfg,null,1)+'\n';
- if(txt.length>950000){say('content.json pesa demasiado ('+Math.round(txt.length/1024)+' KB). Usa imágenes más simples o quita planes.','er');return}
+$('btnSave').onclick=function(){if(!cfg)return;var txt=JSON.stringify(cfg,null,1)+'\n',ex=0;((cfg.works&&cfg.works.items)||[]).forEach(function(w){if(w.image&&w.image.indexOf('data:')===0)ex+=w.image.length});
+ if(txt.length-ex>950000){say('content.json pesa demasiado ('+Math.round(txt.length/1024)+' KB). Usa imágenes más simples o quita planes.','er');return}
  var b=$('btnSave');b.disabled=true;say('Publicando…','inf');
- share().then(function(){return api('content.json',{method:'PUT',body:JSON.stringify({message:'Admin: actualizar contenido',content:b64(txt),sha:sha,branch:$('branch').value.trim()})})})
- .then(function(j){sha=j.content.sha;say('¡Publicado! La web se actualiza en 1–2 minutos.','ok')})
+ worksUp().then(share).then(function(){return api('content.json',{method:'PUT',body:JSON.stringify({message:'Admin: actualizar contenido',content:b64(JSON.stringify(cfg,null,1)+'\n'),sha:sha,branch:$('branch').value.trim()})})})
+ .then(function(j){sha=j.content.sha;draw();say('¡Publicado! La web se actualiza en 1–2 minutos.','ok')})
  .catch(function(e){say('Error: '+e.message+' (si dice "does not match", pulsa Conectar y cargar de nuevo)','er')}).then(function(){b.disabled=false})};
 if(ses.token&&ses.owner&&ses.repo)$('btnLoad').click();
 </script>
