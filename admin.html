@@ -30,6 +30,7 @@ details{margin-top:10px;font-size:.85rem;color:var(--mu)}details ol{padding-left
 .bar{position:fixed;left:0;right:0;bottom:0;background:#0b0f0ee6;backdrop-filter:blur(8px);border-top:1px solid var(--bd);padding:12px 16px;display:flex;gap:10px;justify-content:center}
 #msg{position:fixed;left:16px;right:16px;bottom:78px;margin:auto;max-width:560px;padding:12px;border-radius:10px;font-size:.9rem;display:none;z-index:9}
 .ok{background:#12372a;border:1px solid var(--ac)}.er{background:#3a1717;border:1px solid #ff6b6b}.inf{background:#17293a;border:1px solid #2b8cff}
+h3{font-size:.85rem;margin:16px 0 4px}input[type=color]{width:64px;height:38px;padding:0;border:0;background:none}.plan>h3:first-child{margin-top:0}
 </style>
 </head>
 <body>
@@ -46,33 +47,7 @@ details{margin-top:10px;font-size:.85rem;color:var(--mu)}details ol{padding-left
     <li>Permissions → Repository → <b>Contents: Read and write</b>.</li>
     <li>Copia el token y pégalo arriba. Se guarda solo en este navegador.</li></ol></details>
 </section>
-<div id="editor" style="display:none">
-<section><h2>2. Marca, logo y menú</h2>
-  <div class="row"><div><label>Nombre (parte blanca)</label><input type="text" id="brand.name1"></div><div><label>Nombre (parte de color)</label><input type="text" id="brand.name2"></div></div>
-  <label>Logo (también cambia el icono de la pestaña)</label><img id="logoPrev" class="pv" alt=""><input type="file" accept="image/*" data-up="logo">
-  <label>Menú: 4 enlaces</label><div class="row"><input type="text" id="nav.0"><input type="text" id="nav.1"></div><div class="row" style="margin-top:8px"><input type="text" id="nav.2"><input type="text" id="nav.3"></div>
-  <label>Botón del encabezado</label><input type="text" id="headerButton"></section>
-<section><h2>3. General y contacto</h2>
-  <label>WhatsApp (con código de país, solo números)</label><input type="text" id="whatsapp" inputmode="numeric">
-  <label>Mensaje inicial de WhatsApp</label><input type="text" id="waMessage">
-  <label>Pie de página</label><input type="text" id="footer">
-  <label>Título de la pestaña / Google</label><input type="text" id="site.title">
-  <label>Descripción para Google</label><textarea id="site.description"></textarea></section>
-<section><h2>4. Portada</h2>
-  <label>Título (usa [[palabra]] para resaltarla en color)</label><input type="text" id="hero.title">
-  <label>Texto</label><textarea id="hero.text"></textarea>
-  <label>Texto del botón</label><input type="text" id="hero.button">
-  <label>Banner (aparece al costado del título)</label><img id="heroPrev" class="pv" alt=""><input type="file" accept="image/*" data-up="hero"></section>
-<section><h2>5. Planes</h2>
-  <label>Título de la sección</label><input type="text" id="plansTitle"><label>Texto del botón de cada plan</label><input type="text" id="plansButton">
-  <div id="plans"></div>
-  <div class="acts"><button id="addPlan">+ Agregar plan</button></div></section>
-<section><h2>6. Banner de oferta</h2>
-  <label>Etiqueta</label><input type="text" id="promo.tag">
-  <label>Título</label><input type="text" id="promo.title">
-  <label>Texto</label><textarea id="promo.text"></textarea>
-  <label>Texto del botón</label><input type="text" id="promo.button"></section>
-</div>
+<div id="editor" style="display:none"></div>
 </main>
 <div class="bar"><button class="pri" id="btnSave" disabled>Publicar cambios</button></div>
 <div id="msg"></div>
@@ -89,45 +64,53 @@ function api(path,o){o=o||{};var u='https://api.github.com/repos/'+$('owner').va
  return fetch(u,o).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(r.status===401?'Token inválido o vencido':r.status===404?'No se encontró el repositorio o content.json (revisa usuario, repo, rama y permisos del token)':(j.message||r.status));return j})})}
 function b64(s){return btoa(unescape(encodeURIComponent(s)))}
 function unb64(s){return decodeURIComponent(escape(atob(s.replace(/\n/g,''))))}
-function get(p){return p.split('.').reduce(function(o,k){return o[k]},cfg)}
-function set(p,v){var a=p.split('.'),o=cfg;while(a.length>1)o=o[a.shift()];o[a[0]]=v}
-function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
-function fill(){document.querySelectorAll('#editor [id]').forEach(function(e){if((e.tagName==='INPUT'||e.tagName==='TEXTAREA')&&e.id!=='plans'){var v;try{v=get(e.id)}catch(x){return}e.value=v==null?'':v}});plans();prevs()}
-function prevs(){$('heroPrev').src=cfg.hero.image||'';$('logoPrev').src=cfg.brand.logo||'';if(cfg.brand.logo)$('hdrLogo').src=cfg.brand.logo}
-function plans(){$('plans').innerHTML=cfg.plans.map(function(p,i){return '<div class="plan" data-i="'+i+'">'+
- '<label class="chk"><input type="checkbox" data-k="visible" '+(p.visible!==false?'checked':'')+'> Mostrar en la web</label>'+
- '<div class="row"><div><label>Etiqueta</label><input type="text" data-k="badge" value="'+esc(p.badge)+'"></div><div><label>Precio</label><input type="text" data-k="price" value="'+esc(p.price)+'"></div></div>'+
- '<label>Nombre</label><input type="text" data-k="name" value="'+esc(p.name)+'">'+
- '<label>Descripción</label><textarea data-k="desc">'+esc(p.desc)+'</textarea>'+
- '<label class="chk"><input type="checkbox" data-k="contain" '+(p.contain?'checked':'')+'> Mostrar imagen completa (sin recortar)</label>'+
- '<img src="'+esc(p.image)+'" alt=""><label>Cambiar imagen</label><input type="file" accept="image/*" data-img>'+
- '<div class="acts"><button data-a="up">↑</button><button data-a="down">↓</button><button class="dan" data-a="del">Eliminar</button></div></div>'}).join('')}
-document.addEventListener('input',function(e){var t=e.target;if(!cfg)return;var pl=t.closest&&t.closest('.plan');
- if(pl&&t.dataset.k){cfg.plans[pl.dataset.i][t.dataset.k]=t.type==='checkbox'?t.checked:t.value;return}
- if(t.id&&t.id!=='plans'&&t.closest('#editor')&&t.type!=='file')set(t.id,t.value)});
-document.addEventListener('click',function(e){var a=e.target.dataset.a;if(!a||!cfg)return;var i=+e.target.closest('.plan').dataset.i,P=cfg.plans;
- if(a==='del'){if(confirm('¿Eliminar este plan?'))P.splice(i,1)}
- else{var j=a==='up'?i-1:i+1;if(j<0||j>=P.length)return;var x=P[i];P[i]=P[j];P[j]=x}plans()});
+/* Editor automático: dibuja un campo por cada dato de content.json (todo lo que agregues allí aparece aquí) */
+var ogDirty=0,L={shareImage:'Imagen destacada (la que se ve al compartir el enlace)',url:'Dirección del sitio (opcional; solo si usas dominio propio, ej. https://miweb.com)',site:'Sitio (pestaña y Google)',brand:'Marca y logo',nav:'Menú',hero:'Portada',intro:'Título de la sección de planes',plans:'Planes',promo:'Banner de oferta',theme:'Colores',title:'Título',text:'Texto',button:'Botón',image:'Imagen',logo:'Logo (se usa también como icono de la pestaña)',name:'Nombre',price:'Precio',desc:'Descripción',badge:'Etiqueta',visible:'Mostrar en la web',label:'Texto',target:'Enlace (#planes, #contacto…)',whatsapp:'WhatsApp (solo números, con código de país)',waMessage:'Mensaje inicial de WhatsApp',footer:'Pie de página',headerButton:'Botón del encabezado',plansButton:'Botón de cada plan',accent:'Color principal',accent2:'Color secundario',dark:'Color de fondo oscuro',eyebrow:'Texto pequeño superior',subtitle:'Subtítulo',description:'Descripción para Google',contain:'Mostrar imagen completa (sin recortar)',name1:'Nombre (parte blanca)',name2:'Nombre (parte de color)',tag:'Etiqueta'};
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e}
 function loadImg(f,cb){var im=new Image();im.onload=function(){cb(im)};im.onerror=function(){say('No se pudo leer esa imagen','er')};im.src=URL.createObjectURL(f)}
-function enc(im,maxW,q,bg,square){var w=Math.min(maxW,im.width),h=Math.round(im.height*w/im.width),c=document.createElement('canvas'),x;
- if(square){c.width=c.height=maxW;var k=Math.min(maxW/im.width,maxW/im.height);w=im.width*k;h=im.height*k;x=c.getContext('2d');x.drawImage(im,(maxW-w)/2,(maxH(maxW)-h)/2,w,h)}
- else{c.width=w;c.height=h;x=c.getContext('2d');if(bg){x.fillStyle=bg;x.fillRect(0,0,w,h)}x.drawImage(im,0,0,w,h)}
- return c.toDataURL('image/webp',q)}
-function maxH(s){return s}
-document.addEventListener('change',function(e){var t=e.target,f=t.files&&t.files[0];if(!f||!cfg)return;
- if(t.dataset.img){var i=+t.closest('.plan').dataset.i;loadImg(f,function(im){cfg.plans[i].image=enc(im,700,.8,'#fff');plans()})}
- else if(t.dataset.up==='hero')loadImg(f,function(im){cfg.hero.image=enc(im,900,.82);prevs()})
- else if(t.dataset.up==='logo')loadImg(f,function(im){cfg.brand.logo=enc(im,192,.92,null,true);prevs()})});
-$('addPlan').onclick=function(){cfg.plans.push({badge:'Nuevo',name:'Nuevo plan',desc:'Descripción del plan.',price:'S/ 0',image:'',contain:false,visible:true});plans()};
+function enc(im,w,sq){var c=document.createElement('canvas'),x,h;
+ if(sq){c.width=c.height=w;var k=Math.min(w/im.width,w/im.height);x=c.getContext('2d');x.drawImage(im,(w-im.width*k)/2,(w-im.height*k)/2,im.width*k,im.height*k)}
+ else{w=Math.min(w,im.width);h=Math.round(im.height*w/im.width);c.width=w;c.height=h;x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,w,h);x.drawImage(im,0,0,w,h)}
+ return c.toDataURL('image/webp',.8)}
+function field(o,k,box){var v=o[k],lab=el('label','',L[k]||k),i;
+ if(typeof v==='boolean'){lab.className='chk';i=el('input');i.type='checkbox';i.checked=v;i.onchange=function(){o[k]=i.checked};lab.prepend(i);box.append(lab);return}
+ box.append(lab);
+ if(k==='image'||k==='logo'||k==='shareImage'){var im=el('img','pv');im.src=v;i=el('input');i.type='file';i.accept='image/*';i.onchange=function(){var f=i.files[0];if(f)loadImg(f,function(x){o[k]=k==='shareImage'?encOG(x):enc(x,k==='logo'?192:800,k==='logo');if(k==='shareImage'){ogDirty=1;o._v=Date.now()}im.src=o[k]})};box.append(im,i);return}
+ if(/^#[0-9a-f]{6}$/i.test(v)){i=el('input');i.type='color';i.value=v;i.oninput=function(){o[k]=i.value};box.append(i);return}
+ i=el(v.length>60||/text|desc|subtitle/i.test(k)?'textarea':'input');i.value=v;i.oninput=function(){o[k]=i.value};box.append(i)}
+function blank(o){var r={};for(var k in o)r[k]=typeof o[k]==='string'?'':o[k];return r}
+function build(v,box){
+ if(Array.isArray(v)){
+  v.forEach(function(it,n){var c=el('div','plan');
+   if(it&&typeof it==='object')build(it,c);else{var x=el('input');x.value=it;x.oninput=function(){v[n]=x.value};c.append(x)}
+   var a=el('div','acts');
+   [['↑',-1],['↓',1]].forEach(function(d){var b=el('button','',d[0]);b.onclick=function(){var j=n+d[1];if(j<0||j>=v.length)return;var t=v[n];v[n]=v[j];v[j]=t;draw()};a.append(b)});
+   var d=el('button','dan','Eliminar');d.onclick=function(){if(confirm('¿Eliminar?')){v.splice(n,1);draw()}};a.append(d);c.append(a);box.append(c)});
+  var ad=el('button','','+ Agregar');ad.onclick=function(){var l=v[v.length-1];v.push(l&&typeof l==='object'?blank(l):'');draw()};box.append(ad)}
+ else Object.keys(v).forEach(function(k){if(k[0]==='_')return;var x=v[k];if(x&&typeof x==='object'){box.append(el('h3','',L[k]||k));build(x,box)}else field(v,k,box)})}
+function draw(){var y=scrollY,ed=$('editor');ed.innerHTML='';var g=el('section'),n=0;g.append(el('h2','','Contacto y general'));
+ Object.keys(cfg).forEach(function(k){if(typeof cfg[k]!=='object'){field(cfg,k,g);n=1}});if(n)ed.append(g);
+ Object.keys(cfg).forEach(function(k){var v=cfg[k];if(v&&typeof v==='object'){var s=el('section');s.append(el('h2','',L[k]||k));build(v,s);ed.append(s)}});scrollTo(0,y)}
+function encOG(im){var c=document.createElement('canvas');c.width=1200;c.height=630;var x=c.getContext('2d'),k=Math.max(1200/im.width,630/im.height),w=im.width*k,h=im.height*k;x.fillStyle='#fff';x.fillRect(0,0,1200,630);x.drawImage(im,(1200-w)/2,(630-h)/2,w,h);return c.toDataURL('image/jpeg',.82)}
+function ea(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
+function base(){var u=((cfg.site&&cfg.site.url)||'').trim(),o=$('owner').value.trim().toLowerCase(),r=$('repo').value.trim();if(!u)u='https://'+o+'.github.io/'+(r.toLowerCase()===o+'.github.io'?'':r+'/');return u.replace(/\/?$/,'/')}
+function getF(p){return api(p).then(function(j){return j},function(){return null})}
+function putF(p,c,m,s){var o={message:m,content:c,branch:$('branch').value.trim()};if(s)o.sha=s;return api(p,{method:'PUT',body:JSON.stringify(o)})}
+/* Imagen destacada: sube og-image.jpg y deja en index.html las etiquetas con la dirección completa (WhatsApp, Facebook, etc. no leen content.json) */
+function share(){var s=cfg.site||{};if(!s.shareImage)return Promise.resolve();
+ return getF('og-image.jpg').then(function(f){if(f&&!ogDirty)return;return putF('og-image.jpg',s.shareImage.split(',')[1],'Admin: imagen destacada',f&&f.sha).then(function(){ogDirty=0})})
+ .then(function(){return getF('index.html')}).then(function(f){if(!f)return;var h=unb64(f.content),img=base()+'og-image.jpg?v='+(s._v||1),
+  t='\n<meta property="og:type" content="website">\n<meta property="og:title" content="'+ea(s.title)+'">\n<meta property="og:description" content="'+ea(s.description)+'">\n<meta property="og:url" content="'+ea(base())+'">\n<meta property="og:image" content="'+ea(img)+'">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta name="twitter:card" content="summary_large_image">\n<meta name="twitter:image" content="'+ea(img)+'">\n',
+  n=h.replace(/\s*<meta (?:property="og:|name="twitter:)[^>]*>/g,'').replace('</head>',t+'</head>');
+  if(n!==h)return putF('index.html',b64(n),'Admin: datos para compartir',f.sha)})}
 $('btnLoad').onclick=function(){say('Conectando…','inf');api('content.json').then(function(j){sha=j.sha;cfg=JSON.parse(unb64(j.content));
- cfg.plans=cfg.plans||[];cfg.hero=cfg.hero||{};cfg.promo=cfg.promo||{};cfg.site=cfg.site||{title:'WEBS JOEL // Diseño Web & Desarrollo',description:''};cfg.brand=cfg.brand||{name1:'WEBS',name2:'JOEL',logo:''};cfg.nav=cfg.nav||['Inicio','Servicios','Paquetes','Contacto'];cfg.headerButton=cfg.headerButton||'Escríbenos';cfg.plansButton=cfg.plansButton||'Pedir por WhatsApp ➔';
  localStorage.setItem('wj_admin',JSON.stringify({owner:$('owner').value.trim(),repo:$('repo').value.trim(),branch:$('branch').value.trim(),token:$('token').value.trim()}));
- $('editor').style.display='block';$('btnSave').disabled=false;fill();say('Conectado. Ya puedes editar.','ok')}).catch(function(e){say(e.message,'er')})};
+ $('editor').style.display='block';$('btnSave').disabled=false;if(cfg.brand&&cfg.brand.logo)$('hdrLogo').src=cfg.brand.logo;draw();say('Conectado. Ya puedes editar.','ok')}).catch(function(e){say(e.message,'er')})};
 $('btnOut').onclick=function(){localStorage.removeItem('wj_admin');$('token').value='';say('Token borrado de este equipo','ok')};
 $('btnSave').onclick=function(){if(!cfg)return;var txt=JSON.stringify(cfg,null,1)+'\n';
  if(txt.length>950000){say('content.json pesa demasiado ('+Math.round(txt.length/1024)+' KB). Usa imágenes más simples o quita planes.','er');return}
  var b=$('btnSave');b.disabled=true;say('Publicando…','inf');
- api('content.json',{method:'PUT',body:JSON.stringify({message:'Admin: actualizar contenido',content:b64(txt),sha:sha,branch:$('branch').value.trim()})})
+ share().then(function(){return api('content.json',{method:'PUT',body:JSON.stringify({message:'Admin: actualizar contenido',content:b64(txt),sha:sha,branch:$('branch').value.trim()})})})
  .then(function(j){sha=j.content.sha;say('¡Publicado! La web se actualiza en 1–2 minutos.','ok')})
  .catch(function(e){say('Error: '+e.message+' (si dice "does not match", pulsa Conectar y cargar de nuevo)','er')}).then(function(){b.disabled=false})};
 if(ses.token&&ses.owner&&ses.repo)$('btnLoad').click();
