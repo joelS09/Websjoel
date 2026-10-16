@@ -30,6 +30,9 @@ details{margin-top:10px;font-size:.85rem;color:var(--mu)}details ol{padding-left
 .bar{position:fixed;left:0;right:0;bottom:0;background:#0b0f0ee6;backdrop-filter:blur(8px);border-top:1px solid var(--bd);padding:12px 16px;display:flex;gap:10px;justify-content:center}
 #msg{position:fixed;left:16px;right:16px;bottom:78px;margin:auto;max-width:560px;padding:12px;border-radius:10px;font-size:.9rem;display:none;z-index:9}
 .ok{background:#12372a;border:1px solid var(--ac)}.er{background:#3a1717;border:1px solid #ff6b6b}.inf{background:#17293a;border:1px solid #2b8cff}
+.rbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:6px}.rbar button{padding:6px 10px;font-size:.78rem}
+.rbar .sw{width:30px;height:30px;border-radius:50%;padding:0;border:2px solid #ffffff55}.rbar input[type=color]{width:34px;height:30px}
+.rhint{font-size:.74rem;color:var(--mu);margin-top:4px}.rpv{display:none;margin-top:6px;padding:10px;background:#08121f;border-radius:8px;font-weight:700;line-height:1.3;white-space:pre-line}.rpv .hl{display:block;color:var(--ac)}
 h3{font-size:.85rem;margin:16px 0 4px}input[type=color]{width:64px;height:38px;padding:0;border:0;background:none}.plan>h3:first-child{margin-top:0}
 </style>
 </head>
@@ -75,9 +78,24 @@ function enc(im,w,sq){var c=document.createElement('canvas'),x,h;
 function field(o,k,box){var v=o[k],lab=el('label','',L[k]||k),i;
  if(typeof v==='boolean'){lab.className='chk';i=el('input');i.type='checkbox';i.checked=v;i.onchange=function(){o[k]=i.checked};lab.prepend(i);box.append(lab);return}
  box.append(lab);
- if(k==='image'||k==='logo'||k==='shareImage'||k==='icon'){var im=el('img','pv');if(v)im.src=v;else im.style.display='none';i=el('input');i.type='file';i.accept='image/*';i.onchange=function(){var f=i.files[0];if(f)loadImg(f,function(x){o[k]=k==='shareImage'?encOG(x):enc(x,k==='icon'?128:k==='logo'?192:800,k==='logo'||k==='icon');if(k==='shareImage'){ogDirty=1;o._v=Date.now()}im.src=o[k];im.style.display='block'})};box.append(im,i);return}
+ if(k==='image'||k==='logo'||k==='shareImage'||k==='icon'){var im=el('img','pv');if(v)im.src=v;else im.style.display='none';i=el('input');i.type='file';i.accept='image/*';i.onchange=function(){var f=i.files[0];if(f)loadImg(f,function(x){o[k]=k==='shareImage'?encOG(x):enc(x,k==='icon'?128:k==='logo'?192:(((cfg.works&&cfg.works.items)||[]).indexOf(o)>-1?1200:800),k==='logo'||k==='icon');if(k==='shareImage'){ogDirty=1;o._v=Date.now()}im.src=o[k];im.style.display='block'})};box.append(im,i);return}
  if(/^#[0-9a-f]{6}$/i.test(v)){i=el('input');i.type='color';i.value=v;i.oninput=function(){o[k]=i.value};box.append(i);return}
- i=el(v.length>60||/text|desc|subtitle|message/i.test(k)?'textarea':'input');i.value=v;i.oninput=function(){o[k]=i.value};box.append(i)}
+ var rk=/^(title|name|tag)$/.test(k);i=el(v.length>60||rk||/text|desc|subtitle|message/i.test(k)?'textarea':'input');i.value=v;if(rk)i.style.minHeight='46px';i.oninput=function(){o[k]=i.value};box.append(i);
+ if(/^(title|name|tag|text|desc|subtitle)$/.test(k)&&o!==cfg.site)rich(o,k,i,box)}
+function rt(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\{\{(#[0-9a-fA-F]{3,8})\|([\s\S]+?)\}\}/g,'<span style="color:$1">$2</span>').replace(/\[\[([\s\S]+?)\]\]/g,'<span class="hl">$1</span>')}
+/* Barra para pintar texto: marca una parte del texto y toca un color */
+function rich(o,k,i,box){var pv=el('div','rpv'),bar=el('div','rbar'),sel=[0,0];
+ function upd(){o[k]=i.value;pv.innerHTML=rt(i.value);pv.style.display=/\{\{#|\[\[/.test(i.value)?'block':'none'}
+ function keep(){sel=[i.selectionStart,i.selectionEnd]}
+ ['select','keyup','mouseup','touchend','blur','input'].forEach(function(e){i.addEventListener(e,keep)});i.addEventListener('input',upd);
+ function wrap(a1,b1){var s=sel[0],e=sel[1];if(s==null||e<=s){say('Primero marca (selecciona) una parte del texto en el cuadro','er');return}
+  i.value=i.value.slice(0,s)+a1+i.value.slice(s,e)+b1+i.value.slice(e);upd();i.focus();try{i.setSelectionRange(s+a1.length,e+a1.length)}catch(x){}keep()}
+ function btn(txt,fn,cls,ttl){var b=el('button',cls||'',txt);if(ttl)b.title=ttl;b.onmousedown=function(e){e.preventDefault()};b.onclick=fn;bar.append(b);return b}
+ [['#2b8cff','Azul'],['#2ee6a6','Verde'],['#ff4d4d','Rojo'],['#ffc83d','Amarillo'],['#ff8a1f','Naranja'],['#a66bff','Morado'],['#ffffff','Blanco']].forEach(function(c){var b=btn('',function(){wrap('{{'+c[0]+'|','}}')},'sw',c[1]);b.style.background=c[0]});
+ var ci=el('input');ci.type='color';ci.value='#ff2d95';bar.append(ci);btn('Pintar',function(){wrap('{{'+ci.value+'|','}}')},'','Pintar la parte marcada con el color elegido');
+ btn('Línea abajo',function(){wrap('[[',']]')},'','El texto marcado pasa a su propia línea, debajo del texto normal');
+ btn('Quitar colores',function(){i.value=i.value.replace(/\{\{#[0-9a-fA-F]{3,8}\|([\s\S]+?)\}\}/g,'$1').replace(/\[\[([\s\S]+?)\]\]/g,'$1');upd();keep()},'dan');
+ box.append(bar,el('div','rhint','Marca una parte del texto y toca un color. «Línea abajo» manda el texto marcado a una línea nueva.'),pv);upd()}
 function blank(o){var r={};for(var k in o)r[k]=typeof o[k]==='string'?'':o[k];return r}
 function build(v,box){
  if(Array.isArray(v)){
@@ -86,7 +104,7 @@ function build(v,box){
    var a=el('div','acts');
    [['↑',-1],['↓',1]].forEach(function(d){var b=el('button','',d[0]);b.onclick=function(){var j=n+d[1];if(j<0||j>=v.length)return;var t=v[n];v[n]=v[j];v[j]=t;draw()};a.append(b)});
    var d=el('button','dan','Eliminar');d.onclick=function(){if(confirm('¿Eliminar?')){v.splice(n,1);draw()}};a.append(d);c.append(a);box.append(c)});
-  var ad=el('button','','+ Agregar');ad.onclick=function(){var l=v[v.length-1];v.push(l&&typeof l==='object'?blank(l):'');draw()};box.append(ad)}
+  var ad=el('button','','+ Agregar');ad.onclick=function(){var l=v[v.length-1];v.push(l&&typeof l==='object'?blank(l):(cfg.works&&v===cfg.works.items?{image:'',title:'',desc:'',visible:true}:''));draw()};box.append(ad)}
  else Object.keys(v).forEach(function(k){if(k[0]==='_')return;var x=v[k];if(x&&typeof x==='object'){box.append(el('h3','',L[k]||k));build(x,box)}else field(v,k,box)})}
 function draw(){var y=scrollY,ed=$('editor');ed.innerHTML='';var g=el('section'),n=0;g.append(el('h2','','Contacto y general'));
  Object.keys(cfg).forEach(function(k){if(typeof cfg[k]!=='object'){field(cfg,k,g);n=1}});if(n)ed.append(g);
@@ -109,6 +127,8 @@ function share(){var s=cfg.site||{};if(!s.shareImage)return Promise.resolve();
   n=h.replace(/\s*<meta (?:property="og:|name="twitter:)[^>]*>/g,'').replace('</head>',t+'</head>');
   if(n!==h)return putF('index.html',b64(n),'Admin: datos para compartir',f.sha)})}
 $('btnLoad').onclick=function(){say('Conectando…','inf');api('content.json').then(function(j){sha=j.sha;cfg=JSON.parse(unb64(j.content));
+ if(!cfg.works){var n2={},k2,w0={title:'Nuestros [[trabajos]]',subtitle:'Algunos de los sitios web que hemos creado para nuestros clientes.',items:[]};for(k2 in cfg){n2[k2]=cfg[k2];if(k2==='plans')n2.works=w0}if(!n2.works)n2.works=w0;cfg=n2}
+ cfg.works.items.forEach(function(w){if(w.desc==null)w.desc='';if(w.title==null)w.title=''});
  localStorage.setItem('wj_admin',JSON.stringify({owner:$('owner').value.trim(),repo:$('repo').value.trim(),branch:$('branch').value.trim(),token:$('token').value.trim()}));
  $('editor').style.display='block';$('btnSave').disabled=false;if(cfg.brand&&cfg.brand.logo)$('hdrLogo').src=cfg.brand.logo;draw();say('Conectado. Ya puedes editar.','ok')}).catch(function(e){say(e.message,'er')})};
 $('btnOut').onclick=function(){localStorage.removeItem('wj_admin');$('token').value='';say('Token borrado de este equipo','ok')};

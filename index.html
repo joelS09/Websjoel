@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=1200">
 <title>WEBS JOEL // Diseño Web & Desarrollo</title>
 <meta name="description" content="Webs Joel: diseño web y desarrollo con estilos premium.">
 <meta name="theme-color" content="#08121f">
@@ -28,7 +28,7 @@ linear-gradient(120deg,var(--dark) 0%,color-mix(in srgb,var(--ac2) 32%,var(--dar
 .hero .lg{width:84px;height:84px;border-radius:20px;margin-bottom:18px;box-shadow:0 0 30px rgba(46,230,166,.25)}
 .eyebrow{font-size:.78rem;letter-spacing:.18em;font-weight:700;color:var(--ac);margin-bottom:14px}
 .hero h1{font-size:clamp(2rem,4.4vw,3.5rem);line-height:1.1;font-weight:800;margin-bottom:20px}
-.hero h1 span,.intro h2 span{color:var(--ac)}
+.hl{display:block;color:var(--ac2)}.hero .hl,.card .hl,.promo .hl,.lb .hl{color:var(--ac)}
 .hero p{font-size:1.08rem;line-height:1.65;color:#d5e3ee;max-width:540px;margin-bottom:30px}
 .hero .img{border-radius:26px;overflow:hidden;border:1px solid rgba(255,255,255,.18);box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 60px color-mix(in srgb,var(--ac2) 30%,transparent)}
 .hero .img img{display:block;width:100%;height:auto}
@@ -37,7 +37,6 @@ linear-gradient(120deg,var(--dark) 0%,color-mix(in srgb,var(--ac2) 32%,var(--dar
 /* INTRO + CARRUSEL */
 .intro{text-align:center;padding:90px 0 20px}
 .intro h2{font-size:clamp(2rem,5.2vw,3.8rem);font-weight:800;letter-spacing:-.02em}
-.intro h2 span{color:var(--ac2)}
 .intro p{font-size:1.2rem;color:#444;margin:16px auto 0;max-width:720px;line-height:1.55}
 .cw{position:relative}
 .car{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:40px max(16px,calc((100% - 1180px)/2)) 50px}
@@ -57,22 +56,24 @@ linear-gradient(120deg,var(--dark) 0%,color-mix(in srgb,var(--ac2) 32%,var(--dar
 .arw{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:var(--ac2);color:#fff;font-size:1.2rem;cursor:pointer;z-index:3;box-shadow:0 6px 16px rgba(0,0,0,.25)}
 .arw.l{left:max(8px,calc((100% - 1260px)/2))}.arw.r{right:max(8px,calc((100% - 1260px)/2))}
 /* SALTOS DE LINEA (Enter en el panel admin) */
-.card p,.hero p,.intro p,.promo p,.works-s{white-space:pre-line}
+.card p,.card h3,.hero p,.hero h1,.intro p,.intro h2,.promo p,.promo h2,.works-s,.works h2,.wk-b p,.wk-b h4,.lb p,.lb h3{white-space:pre-line}
 /* TRABAJOS */
 .works{padding:70px 0 30px;text-align:center}
 .works h2{font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.02em}
-.works h2 span{color:var(--ac2)}
 .works-s{font-size:1.1rem;color:#444;margin:14px auto 0;max-width:680px;line-height:1.55}
 .wg{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:40px;text-align:left}
-.wk{position:relative;border:0;padding:0;border-radius:20px;overflow:hidden;aspect-ratio:4/3;cursor:zoom-in;background:var(--dark);box-shadow:0 12px 30px rgba(0,0,0,.14);display:block;width:100%;color:#fff;font:inherit}
-.wk img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .6s}
-.wk:hover img{transform:scale(1.06)}
-.wk span{position:absolute;left:0;right:0;bottom:0;padding:34px 16px 14px;font-weight:700;font-size:1rem;background:linear-gradient(180deg,transparent,rgba(6,14,24,.92))}
-.lb{position:fixed;inset:0;background:rgba(4,10,18,.92);z-index:50;display:none;align-items:center;justify-content:center;padding:20px;flex-direction:column;gap:12px}
+.wk{border-radius:20px;overflow:hidden;cursor:zoom-in;background:#fff;box-shadow:0 12px 30px rgba(0,0,0,.14);transition:.3s;display:flex;flex-direction:column}
+.wk:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.2)}
+.wk img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top;display:block;background:var(--dark)}
+.wk-b{padding:16px 18px 20px}
+.wk-b h4{font-size:1.15rem;font-weight:800;color:#0b0f0e;line-height:1.25}
+.wk-b p{font-size:.93rem;color:#555;line-height:1.55;margin-top:6px}
+.lb{position:fixed;inset:0;background:rgba(4,10,18,.93);z-index:50;display:none;align-items:center;justify-content:center;padding:24px;flex-direction:column;gap:10px;text-align:center}
 .lb.on{display:flex}
-.lb img{max-width:100%;max-height:82vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
-.lb p{color:#d5e3ee;font-weight:600}
-.lb button{position:absolute;top:16px;right:18px;width:42px;height:42px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:1.3rem;cursor:pointer}
+.lb img{max-width:100%;max-height:74vh;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.lb h3{color:#fff;font-size:1.4rem;margin-top:6px}
+.lb p{color:#d5e3ee;max-width:720px;line-height:1.55}
+.lb button{position:absolute;top:16px;right:18px;width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:1.3rem;cursor:pointer}
 /* PROMO */
 .promo{background:var(--dark);color:#fff;border-radius:28px;padding:56px;margin:30px auto 80px;display:flex;align-items:center;gap:36px;background:linear-gradient(120deg,var(--dark),color-mix(in srgb,var(--ac) 30%,var(--dark)))}
 .promo .lg{width:130px;height:130px;border-radius:26px;flex-shrink:0}
@@ -87,16 +88,11 @@ section[id],.hero{scroll-margin-top:0}
 @media(max-width:860px){.hero .wrap{grid-template-columns:1fr;padding:70px 0 80px;text-align:center}.hero p{margin-inline:auto}.hero .lg{margin-inline:auto}.hero .img{max-width:460px;margin:auto}.promo{flex-direction:column;text-align:center;padding:36px 22px}.arw{display:none}}
 @media(max-width:620px){.hero{min-height:0}}
 </style>
-
 <meta property="og:type" content="website">
-<meta property="og:title" content="WEBS JOEL // Diseño Web &amp; Desarrollo">
-<meta property="og:description" content="Webs Joel: diseño web y desarrollo con estilos premium y animaciones modernas. Pide tu sitio web por WhatsApp.">
-<meta property="og:url" content="https://joels09.github.io/Websjoel/">
-<meta property="og:image" content="https://joels09.github.io/Websjoel/og-image.jpg?v=1">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:title" content="WEBS JOEL // Diseño Web & Desarrollo">
+<meta property="og:description" content="Webs Joel: diseño web y desarrollo con estilos premium.">
+<meta property="og:image" content="og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://joels09.github.io/Websjoel/og-image.jpg?v=1">
 </head>
 <body>
 <header class="hero" id="inicio">
@@ -110,7 +106,7 @@ section[id],.hero{scroll-margin-top:0}
  <div class="cw"><button class="arw l" aria-label="Anterior">‹</button><div class="car" id="car"></div><button class="arw r" aria-label="Siguiente">›</button></div>
 </section>
 <section class="works" id="trabajos" style="display:none"><div class="wrap"><h2 id="wt"></h2><p class="works-s" id="ws"></p><div class="wg" id="wg"></div></div></section>
-<div class="lb" id="lb"><button aria-label="Cerrar">✕</button><img alt=""><p></p></div>
+<div class="lb" id="lb"><button aria-label="Cerrar">✕</button><img alt=""><h3></h3><p></p></div>
 <section id="contacto"><div class="wrap"><div class="promo"><img class="lg" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Logo">
  <div><h5 id="pt"></h5><h2 id="ph"></h2><p id="pp"></p><div class="sel" id="sel"></div><a href="#planes" class="pill off" id="pb"></a></div></div></div></section>
 <footer id="ft"></footer>
@@ -119,37 +115,38 @@ section[id],.hero{scroll-margin-top:0}
 fetch('content.json?v='+Date.now()).then(function(r){return r.json()}).then(function(c){
  var $=function(i){return document.getElementById(i)},q=function(s){return document.querySelectorAll(s)};
  var esc=function(t){return String(t==null?'':t).replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})};
- var hl=function(t){return esc(t).replace(/\[\[(.+?)\]\]/g,'<span>$1</span>')};
+ var rt=function(t){return esc(t).replace(/\{\{(#[0-9a-fA-F]{3,8})\|([\s\S]+?)\}\}/g,'<span style="color:$1">$2</span>').replace(/\[\[([\s\S]+?)\]\]/g,'<span class="hl">$1</span>')},hl=rt,st=function(t){return String(t==null?'':t).replace(/\{\{#[0-9a-fA-F]{3,8}\|([\s\S]+?)\}\}/g,'$1').replace(/\[\[([\s\S]+?)\]\]/g,'$1')};
  var th=c.theme||{},rs=document.documentElement.style;
  if(th.accent)rs.setProperty('--ac',th.accent);if(th.accent2)rs.setProperty('--ac2',th.accent2);if(th.dark)rs.setProperty('--dark',th.dark);
  var num=String(c.whatsapp).replace(/\D/g,''),wa=function(t){return'https://wa.me/'+num+'?text='+encodeURIComponent(t||'')},sel=null;
   if(c.site){document.title=c.site.title;var md=document.querySelector('meta[name=description]');if(md)md.content=c.site.description}
  var b=c.brand||{};
  if(b.logo){q('.lg').forEach(function(i){i.src=b.logo});$('favicon').href=b.logo}
- var h=c.hero||{};$('he').textContent=h.eyebrow||'';$('ht').innerHTML=hl(h.title);$('hp').textContent=h.text||'';$('hbtn').textContent=h.button||'';if(h.image)$('hi').src=h.image;
- var i=c.intro||{title:c.plansTitle||'',subtitle:''};$('it').innerHTML=hl(i.title);$('is').textContent=i.subtitle||'';
+ var h=c.hero||{};$('he').textContent=h.eyebrow||'';$('ht').innerHTML=hl(h.title);$('hp').innerHTML=rt(h.text);$('hbtn').textContent=h.button||'';if(h.image)$('hi').src=h.image;
+ var i=c.intro||{title:c.plansTitle||'',subtitle:''};$('it').innerHTML=hl(i.title);$('is').innerHTML=rt(i.subtitle);
  var pb=c.plansButton||'Pedir ➔';
  var vis=(c.plans||[]).filter(function(p){return p.visible!==false});
  $('car').innerHTML=vis.map(function(p,i){
-  return'<div class="card'+(p.contain?' ct':'')+'" data-i="'+i+'">'+(p.image?'<img src="'+esc(p.image)+'" alt="'+esc(p.name)+'" loading="lazy">':'')+'<div class="badge">'+esc(p.badge)+'</div><h3>'+esc(p.name)+'</h3><p>'+esc(p.desc)+'</p><div class="row"><div class="price">'+esc(p.price)+'</div><a class="pill s pick" href="#contacto">'+esc(pb)+'</a></div></div>'}).join('');
- var pr=c.promo||{};$('pt').textContent=pr.tag||'';$('ph').textContent=pr.title||'';$('pp').textContent=pr.text||'';$('pb').textContent=pr.button||'';
- var T=function(t,p){return String(t||'').replace(/\{plan\}/g,p.name).replace(/\{precio\}/g,p.price)};
+  return'<div class="card'+(p.contain?' ct':'')+'" data-i="'+i+'">'+(p.image?'<img src="'+esc(p.image)+'" alt="'+esc(st(p.name))+'" loading="lazy">':'')+'<div class="badge">'+esc(p.badge)+'</div><h3>'+rt(p.name)+'</h3><p>'+rt(p.desc)+'</p><div class="row"><div class="price">'+esc(p.price)+'</div><a class="pill s pick" href="#contacto">'+esc(pb)+'</a></div></div>'}).join('');
+ var pr=c.promo||{};$('pt').innerHTML=rt(pr.tag);$('ph').innerHTML=rt(pr.title);$('pp').innerHTML=rt(pr.text);$('pb').textContent=pr.button||'';
+ var T=function(t,p){return String(t||'').replace(/\{plan\}/g,st(p.name)).replace(/\{precio\}/g,p.price)};
  function upd(){var b=$('pb'),f=$('wab'),s=$('sel');
   if(sel==null){s.innerHTML='<span>'+esc(pr.empty||'Primero elige un plan arriba ↑')+'</span>';b.href='#planes';b.removeAttribute('target');b.classList.add('off');f.href='#planes';f.removeAttribute('target');return}
   var p=vis[sel],u=wa(T(p.message||c.waMessage||'Hola, quiero el {plan}',p));
-  s.innerHTML='<small>'+esc(pr.selected||'Plan elegido:')+'</small> <b>'+esc(p.name)+'</b> · <b class="pr">'+esc(p.price)+'</b> <a href="#planes">'+esc(pr.change||'Cambiar plan')+'</a>';
+  s.innerHTML='<small>'+esc(pr.selected||'Plan elegido:')+'</small> <b>'+esc(st(p.name))+'</b> · <b class="pr">'+esc(p.price)+'</b> <a href="#planes">'+esc(pr.change||'Cambiar plan')+'</a>';
   b.href=u;b.target='_blank';b.rel='noopener';b.classList.remove('off');f.href=u;f.target='_blank';f.rel='noopener'}
  q('.pick').forEach(function(a){a.onclick=function(){sel=+a.closest('.card').dataset.i;q('.card').forEach(function(d){d.classList.toggle('on',+d.dataset.i===sel)});upd()}});
  upd();
 
  var wk=c.works||{},wi=(wk.items||[]).filter(function(w){return w.visible!==false&&w.image});
- if(wi.length){$('trabajos').style.display='';$('wt').innerHTML=hl(wk.title||'Nuestros [[trabajos]]');$('ws').textContent=wk.subtitle||'';
-  $('wg').innerHTML=wi.map(function(w,n){return'<button class="wk" data-n="'+n+'"><img src="'+esc(w.image)+'" alt="'+esc(w.title||'Trabajo')+'" loading="lazy">'+(w.title?'<span>'+esc(w.title)+'</span>':'')+'</button>'}).join('');
-  var lb=$('lb'),li=lb.querySelector('img'),lt=lb.querySelector('p');
-  q('.wk').forEach(function(b){b.onclick=function(){var w=wi[+b.dataset.n];li.src=w.image;lt.textContent=w.title||'';lb.classList.add('on')}});
+ if(wi.length){$('trabajos').style.display='';$('wt').innerHTML=rt(wk.title||'Nuestros [[trabajos]]');$('ws').innerHTML=rt(wk.subtitle);
+  $('wg').innerHTML=wi.map(function(w,n){return'<div class="wk" role="button" tabindex="0" data-n="'+n+'"><img src="'+esc(w.image)+'" alt="'+esc(st(w.title)||'Trabajo')+'" loading="lazy">'+((w.title||w.desc)?'<div class="wk-b">'+(w.title?'<h4>'+rt(w.title)+'</h4>':'')+(w.desc?'<p>'+rt(w.desc)+'</p>':'')+'</div>':'')+'</div>'}).join('');
+  var lb=$('lb'),li=lb.querySelector('img'),lh=lb.querySelector('h3'),lt=lb.querySelector('p');
+  var op=function(b){var w=wi[+b.dataset.n];li.src=w.image;lh.innerHTML=rt(w.title);lt.innerHTML=rt(w.desc);lb.classList.add('on')};
+  q('.wk').forEach(function(b){b.onclick=function(){op(b)};b.onkeydown=function(e){if(e.key==='Enter')op(b)}});
   lb.onclick=function(){lb.classList.remove('on')};document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('on')})}
  $('ft').innerHTML='© '+new Date().getFullYear()+' '+esc(c.footer);
- var w=c.waButton||{},wb=$('wab');if(w.visible===false)wb.style.display='none';else{if(w.icon)$('wai').src=w.icon;if(w.background)wb.style.background=w.background;var z=parseInt(w.size);if(z>=30&&z<=120)wb.style.width=wb.style.height=z+'px'}
+ var w=c.waButton||{},wb=$('wab');if(w.visible===false)wb.style.display='none';else{if(w.icon)$('wai').src=w.icon;if(w.background)wb.style.background=w.background;var z=parseInt(w.size);if(!(z>=30&&z<=120))z=48;var k=Math.max(1,Math.min(3.2,window.innerWidth/(screen.width||window.innerWidth)));wb.style.width=wb.style.height=Math.round(z*k)+'px';if(k>1){wb.style.padding=Math.round(9*k)+'px';wb.style.right=wb.style.bottom=Math.round(20*k)+'px'}}
  q('.arw').forEach(function(a){a.onclick=function(){$('car').scrollBy({left:(a.classList.contains('r')?1:-1)*390,behavior:'smooth'})}});
 }).catch(function(){});
 </script>
