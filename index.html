@@ -130,17 +130,22 @@ footer{background:#0d1114}
 .card{flex:0 0 100%;scroll-snap-stop:always;height:520px}
 .dots{display:flex}
 }
+.wc{text-align:left}
+.car .wk{flex:0 0 min(340px,84%);scroll-snap-align:start}
+.works .car{padding-top:36px}
+@media(max-width:620px){.car .wk{flex:0 0 100%;scroll-snap-stop:always}}
+/* Celular: banner rectangular (si la imagen es cuadrada se recorta) y boton siempre debajo del texto */
+@media(max-width:860px){
+.hero.bn.sq{background-image:none!important}
+.hero.bn.sq:before{aspect-ratio:16/9;background:linear-gradient(to bottom,transparent 84%,var(--hbg) 100%),var(--img) center 30%/cover no-repeat}
+.hero .pill{display:block;width:100%;max-width:340px;margin:28px auto 0;text-align:center}
+}
 </style>
-
 <meta property="og:type" content="website">
-<meta property="og:title" content="WEBS JOEL // Diseño Web &amp; Desarrollo">
-<meta property="og:description" content="Webs Joel: diseño web y desarrollo con estilos premium y animaciones modernas. Pide tu sitio web por WhatsApp.">
-<meta property="og:url" content="https://joels09.github.io/Websjoel/">
-<meta property="og:image" content="https://joels09.github.io/Websjoel/og-image.jpg?v=1792186532691">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
+<meta property="og:title" content="WEBS JOEL // Diseño Web & Desarrollo">
+<meta property="og:description" content="Webs Joel: diseño web y desarrollo con estilos premium.">
+<meta property="og:image" content="og-image.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://joels09.github.io/Websjoel/og-image.jpg?v=1792186532691">
 </head>
 <body>
 <header class="hero" id="inicio">
@@ -153,7 +158,9 @@ footer{background:#0d1114}
  <div class="cw"><button class="arw l" aria-label="Anterior">‹</button><div class="car" id="car"></div><button class="arw r" aria-label="Siguiente">›</button></div>
  <div class="dots" id="dots"></div>
 </section>
-<section class="works" id="trabajos" style="display:none"><div class="wrap"><h2 id="wt"></h2><p class="works-s" id="ws"></p><div class="wg" id="wg"></div></div></section>
+<section class="works" id="trabajos" style="display:none"><div class="wrap"><h2 id="wt"></h2><p class="works-s" id="ws"></p></div>
+ <div class="cw"><button class="arw l" aria-label="Anterior">‹</button><div class="car wc" id="wg"></div><button class="arw r" aria-label="Siguiente">›</button></div>
+ <div class="dots" id="wdots"></div></section>
 <div class="lb" id="lb"><button aria-label="Cerrar">✕</button><img alt=""><h3></h3><p></p></div>
 <section id="contacto"><div class="wrap"><div class="promo"><img class="lg" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" alt="Logo">
  <div><h5 id="pt"></h5><h2 id="ph"></h2><p id="pp"></p><div class="sel" id="sel"></div><a href="#planes" class="pill off" id="pb"></a></div></div></div></section>
@@ -171,7 +178,7 @@ fetch('content.json?v='+Date.now()).then(function(r){return r.json()}).then(func
  var b=c.brand||{};
  if(b.logo){q('.lg').forEach(function(i){i.src=b.logo});$('favicon').href=b.logo}
  var h=c.hero||{};$('he').textContent=h.eyebrow||'';$('ht').innerHTML=hl(h.title);$('hp').innerHTML=rt(h.text);$('hbtn').textContent=h.button||'';if(h.image){var hr=$('inicio'),bi=new Image();bi.onload=function(){var cv=document.createElement('canvas');cv.width=cv.height=1;var cx=cv.getContext('2d'),col='#08121f';try{cx.drawImage(bi,Math.round(bi.naturalWidth*.08),Math.round(bi.naturalHeight*.5),1,1,0,0,1,1);var px=cx.getImageData(0,0,1,1).data;col='rgb('+px[0]+','+px[1]+','+px[2]+')'}catch(e){}
-  var ar=bi.naturalWidth/bi.naturalHeight;hr.style.setProperty('--ar',ar);if(ar>=1.5)hr.classList.add('wd');hr.style.setProperty('--hbg',col);hr.style.backgroundColor=col;hr.style.backgroundImage='url("'+h.image+'")';hr.classList.add('bn')};bi.src=h.image}
+  var ar=bi.naturalWidth/bi.naturalHeight;hr.style.setProperty('--ar',ar);if(ar>=1.5)hr.classList.add('wd');else{hr.classList.add('sq');hr.style.setProperty('--img','url("'+h.image+'")')}hr.style.setProperty('--hbg',col);hr.style.backgroundColor=col;hr.style.backgroundImage='url("'+h.image+'")';hr.classList.add('bn')};bi.src=h.image}
  var i=c.intro||{title:c.plansTitle||'',subtitle:''};$('it').innerHTML=hl(i.title);$('is').innerHTML=rt(i.subtitle);
  var pb=c.plansButton||'Pedir ➔';
  var vis=(c.plans||[]).filter(function(p){return p.visible!==false});
@@ -196,11 +203,13 @@ fetch('content.json?v='+Date.now()).then(function(r){return r.json()}).then(func
   lb.onclick=function(){lb.classList.remove('on')};document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.classList.remove('on')})}
  $('ft').innerHTML='© '+new Date().getFullYear()+' '+esc(c.footer);
  var w=c.waButton||{},wb=$('wab');if(w.visible===false)wb.style.display='none';else{if(w.icon)$('wai').src=w.icon;if(w.background)wb.style.background=w.background;var z=parseInt(w.size);if(z>=30&&z<=120)wb.style.width=wb.style.height=z+'px'}
- var cr=$('car'),dt=$('dots');dt.innerHTML=vis.map(function(p,n){return'<button aria-label="Plan '+(n+1)+'"></button>'}).join('');
- var ad=function(){var k=cr.children[0];if(!k)return;var st2=k.offsetWidth+(parseFloat(getComputedStyle(cr).columnGap)||12),n=Math.round(cr.scrollLeft/st2);[].forEach.call(dt.children,function(b,j){b.classList.toggle('on',j===n)})};
- cr.addEventListener('scroll',ad,{passive:true});ad();
- [].forEach.call(dt.children,function(b,j){b.onclick=function(){var k=cr.children[j];cr.scrollTo({left:k.offsetLeft-(parseFloat(getComputedStyle(cr).paddingLeft)||0),behavior:'smooth'})}});
- q('.arw').forEach(function(a){a.onclick=function(){$('car').scrollBy({left:(a.classList.contains('r')?1:-1)*390,behavior:'smooth'})}});
+ var setupCar=function(cr,dt){dt.innerHTML=[].map.call(cr.children,function(k,n){return'<button aria-label="Elemento '+(n+1)+'"></button>'}).join('');
+  var ad=function(){var k=cr.children[0];if(!k)return;var gap=k.offsetWidth+(parseFloat(getComputedStyle(cr).columnGap)||12),n=Math.round(cr.scrollLeft/gap);[].forEach.call(dt.children,function(b,j){b.classList.toggle('on',j===n)})};
+  cr.addEventListener('scroll',ad,{passive:true});ad();
+  [].forEach.call(dt.children,function(b,j){b.onclick=function(){var k=cr.children[j];cr.scrollTo({left:k.offsetLeft-(parseFloat(getComputedStyle(cr).paddingLeft)||0),behavior:'smooth'})}});
+  var box=cr.parentNode;[].forEach.call(box.querySelectorAll('.arw'),function(a){a.onclick=function(){cr.scrollBy({left:(a.classList.contains('r')?1:-1)*(cr.children[0]?cr.children[0].offsetWidth+18:390),behavior:'smooth'})}})};
+ setupCar($('car'),$('dots'));
+ if(wi.length)setupCar($('wg'),$('wdots'));
 }).catch(function(){});
 </script>
 </body>
