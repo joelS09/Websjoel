@@ -240,6 +240,35 @@ html.rvon .rv.in,#hi.ld,.wa:after,.pill.cta:after,.card.on,.lb.on,.lb.on img,.fa
 html.rvon .hd:after{transform:none!important;transition:none}
 .nav .ind{transition:none}
 }
+
+/* ===== CARRUSEL ANIMADO (basado en el video del smartwatch) ===== */
+@property --glow{syntax:'<color>';inherits:true;initial-value:rgba(0,0,0,0)}
+/* Resplandor de fondo que toma el color de la tarjeta activa */
+.cw{isolation:isolate;transition:--glow 1s ease}
+.cw:before{content:"";position:absolute;inset:-30px 0;z-index:-1;pointer-events:none;background:radial-gradient(55% 65% at 50% 55%,var(--glow),transparent 72%)}
+/* Profundidad: la tarjeta activa destaca y las vecinas se alejan un poco */
+.car .card,.car .wk{opacity:calc(1 - var(--a,0)*.22);scale:calc(1 - var(--a,0)*.04)}
+.car .card:hover,.car .wk:hover{opacity:1}
+.car .card{transition:border-color .3s,box-shadow .3s}
+.car .wk{transition:transform .3s,border-color .3s,box-shadow .3s}
+.car .card.fx,.car .wk.fx{border-color:color-mix(in srgb,var(--ac) 70%,transparent);box-shadow:0 0 34px color-mix(in srgb,var(--ac) 20%,transparent)}
+/* Paralaje: mientras el carrusel se mueve, textos e imagen se deslizan a distinta velocidad; al detenerse vuelven a su sitio */
+.car .card>img{translate:calc(var(--vn,0)*-26px) 0}
+.car .card>.badge{translate:calc(var(--vn,0)*18px) 0}
+.car .card>h3{translate:calc(var(--vn,0)*28px) 0}
+.car .card>p{translate:calc(var(--vn,0)*38px) 0}
+.car .card>.row{translate:calc(var(--vn,0)*48px) 0}
+.car .wk-b{translate:calc(var(--vn,0)*32px) 0}
+/* Fila de miniaturas (reemplaza los puntos) */
+.dots.th{display:flex;align-items:center;justify-content:center;gap:12px;padding:6px 16px 20px}
+.dots.th button.th{flex:none;width:48px;height:48px;border-radius:50%;padding:0;background-color:var(--pn);background-size:cover;background-position:center top;border:2px solid rgba(255,255,255,.14);opacity:.5;scale:.88;transition:opacity .35s,scale .45s var(--e),border-color .35s,box-shadow .35s}
+.dots.th button.th:hover{opacity:.85}
+.dots.th button.th.on{width:48px;border-radius:50%;opacity:1;scale:1.2;border-color:var(--ac);box-shadow:0 0 18px color-mix(in srgb,var(--ac) 55%,transparent)}
+@media(prefers-reduced-motion:reduce){
+.car .card,.car .wk{scale:none}
+.car .card>*,.car .wk-b{translate:none!important}
+.cw{transition:none}
+}
 </style>
 <meta property="og:type" content="website">
 <meta property="og:title" content="WEBS JOEL // Diseño Web & Desarrollo">
@@ -384,6 +413,90 @@ addEventListener('message',function(e){if(e.origin!==location.origin||parent===w
  scan();
  /* --- Brillo que sigue al mouse --- */
  d.addEventListener('pointermove',function(e){var t=e.target.closest&&e.target.closest('.gi,.card,.wk,.ct-i');if(!t)return;var r=t.getBoundingClientRect();t.style.setProperty('--mx',(e.clientX-r.left)+'px');t.style.setProperty('--my',(e.clientY-r.top)+'px')},{passive:true});
+})();
+</script>
+<script>
+/* CARRUSEL ANIMADO */
+(function(){
+ var d=document;if(!window.MutationObserver)return;
+ var RM=matchMedia('(prefers-reduced-motion:reduce)').matches,cache=new WeakMap();
+ function dom(img){
+  if(cache.has(img))return cache.get(img);
+  try{var c=d.createElement('canvas');c.width=c.height=24;var x=c.getContext('2d',{willReadFrequently:true});x.drawImage(img,0,0,24,24);
+   var a=x.getImageData(0,0,24,24).data,r=0,g=0,b=0,w=0;
+   for(var i=0;i<a.length;i+=4){var R=a[i],G=a[i+1],B=a[i+2],mx=Math.max(R,G,B),mn=Math.min(R,G,B),s=(mx-mn)/(mx||1),l=mx/255,k=s*s*(l>.15&&l<.97?1:.1)+.001;r+=R*k;g+=G*k;b+=B*k;w+=k}
+   var rgb=[Math.round(r/w),Math.round(g/w),Math.round(b/w)];cache.set(img,rgb);return rgb}catch(e){return null}}
+ /* Desplazamiento con curva suave (como el video) */
+ function glide(cr,to,dur){
+  var from=cr.scrollLeft,t0=performance.now(),snap=cr.style.scrollSnapType;
+  cr._g=1;cr.style.scrollSnapType='none';
+  (function f(t){
+   if(cr._abort){cr._abort=0;cr._g=0;cr.style.scrollSnapType=snap;return}
+   var k=Math.min(1,(t-t0)/dur),e=k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2;
+   cr.scrollLeft=from+(to-from)*e;
+   if(k<1)requestAnimationFrame(f);else{cr._g=0;cr.style.scrollSnapType=snap}
+  })(t0)}
+ /* Velocidad del movimiento (--vn de -1 a 1); decae a 0 cuando el carrusel se detiene */
+ function vel(cr){
+  var sl=cr.scrollLeft,dv=sl-(cr._ls==null?sl:cr._ls);cr._ls=sl;cr._vs=(cr._vs||0)*.5+dv*.5;
+  if(cr._vt)return;cr._vt=1;
+  (function f(){cr._vs*=.86;cr.style.setProperty('--vn',Math.max(-1,Math.min(1,cr._vs/6)).toFixed(3));
+   if(Math.abs(cr._vs)>.03)requestAnimationFrame(f);else{cr._vt=0;cr.style.setProperty('--vn',0)}})()}
+ function sp(cr){return parseFloat(getComputedStyle(cr).scrollPaddingLeft)||0}
+ /* Posición de cada tarjeta respecto al foco: --p (-1.4 a 1.4) y --a (distancia 0 a 1) */
+ function upd(cr){
+  var kids=cr.children,n=kids.length;if(!n)return;
+  var W=cr.clientWidth,s=cr.scrollLeft,max=cr.scrollWidth-W,pad=sp(cr),k0=kids[0],cw=k0.offsetWidth,s0=k0.offsetLeft-pad,
+      step=n>1?kids[1].offsetLeft-k0.offsetLeft:(cw||1),
+      q=max>s0?Math.min(1,Math.max(0,(s-s0)/(max-s0))):0,
+      fv=pad+cw/2+q*(W-cw-pad),best=0,bd=9;
+  for(var i=0;i<n;i++){
+   var k=kids[i],p=(k.offsetLeft+k.offsetWidth/2-s-fv)/step;p=Math.max(-1.4,Math.min(1.4,p));
+   var a=Math.min(1,Math.abs(p));
+   k.style.setProperty('--p',p.toFixed(3));k.style.setProperty('--a',a.toFixed(3));
+   if(a<bd){bd=a;best=i}}
+  for(var j=0;j<n;j++)kids[j].classList.toggle('fx',j===best);
+  var cwEl=cr.parentNode,dots=cwEl.nextElementSibling;
+  if(dots&&dots.classList.contains('dots'))[].forEach.call(dots.children,function(b,j){b.classList.toggle('on',j===best)});
+  var im=kids[best].querySelector('img'),rgb=null;
+  if(im&&im.complete&&im.naturalWidth)rgb=dom(im);
+  else if(im&&!im._w){im._w=1;im.addEventListener('load',function(){upd(cr)},{once:true})}
+  cwEl.style.setProperty('--glow',rgb?'rgba('+rgb.join(',')+',.5)':'color-mix(in srgb,var(--ac) 45%,transparent)');
+ }
+ /* Miniaturas con la imagen de cada tarjeta */
+ function thumbs(cr){
+  var kids=cr.children,dots=cr.parentNode.nextElementSibling;
+  if(!dots||!dots.classList.contains('dots'))return;
+  var any=false;
+  [].forEach.call(dots.children,function(b,j){
+   if(b.classList.contains('th')){any=true;return}
+   var im=kids[j]&&kids[j].querySelector('img'),u=im&&im.getAttribute('src');
+   if(u){b.style.backgroundImage='url("'+u.replace(/"/g,'%22')+'")';b.classList.add('th');any=true}});
+  dots.classList.toggle('th',any)}
+ function init(cr){
+  if(cr._z)return;cr._z=1;
+  var cw=cr.parentNode,sec=cw.parentNode,hover=false,last=0,vis=false;
+  cr.addEventListener('scroll',function(){if(cr._r)return;cr._r=1;requestAnimationFrame(function(){cr._r=0;vel(cr);upd(cr)})},{passive:true});
+  addEventListener('resize',function(){upd(cr)});
+  if(RM||!window.IntersectionObserver)return;
+  var mark=function(){last=Date.now();if(cr._g)cr._abort=1};
+  ['pointerdown','touchstart','wheel','keydown'].forEach(function(t){sec.addEventListener(t,mark,{passive:true})});
+  cw.addEventListener('mouseenter',function(){hover=true});
+  cw.addEventListener('mouseleave',function(){hover=false;last=Date.now()});
+  new IntersectionObserver(function(es){vis=es[0].isIntersecting},{threshold:.35}).observe(cw);
+  /* Avance automático cada pocos segundos; se pausa si la persona interactúa */
+  setInterval(function(){
+   if(!vis||hover||d.hidden||cr._g||Date.now()-last<7000||cr.querySelector('.card.on')||d.querySelector('.lb.on'))return;
+   var kids=cr.children,n=kids.length,pad=sp(cr),s=cr.scrollLeft,max=cr.scrollWidth-cr.clientWidth,s0=kids[0]?kids[0].offsetLeft-pad:0;
+   if(n<2||max<=s0+8)return;
+   var lead=0;for(var i=0;i<n;i++){if(kids[i].offsetLeft-pad<=s+8)lead=i}
+   if(s>=max-6)glide(cr,s0,1300);
+   else glide(cr,Math.min(max,kids[Math.min(n-1,lead+1)].offsetLeft-pad),1000)
+  },4200);
+ }
+ function run(){[].forEach.call(d.querySelectorAll('.cw'),function(cw){var cr=cw.querySelector('.car');if(!cr||!cr.children.length)return;init(cr);thumbs(cr);upd(cr)})}
+ new MutationObserver(run).observe(d.body,{childList:true,subtree:true});
+ addEventListener('load',run);run();
 })();
 </script>
 </body>
