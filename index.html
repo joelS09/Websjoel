@@ -7,6 +7,7 @@
 /* Celulares y tablets pequeñas: se abre el diseño de escritorio completo (se ve reducido; se puede ampliar con los dedos) */
 (function(){try{var w=Math.min(screen.width,screen.height);if(w&&w<820&&matchMedia('(pointer:coarse)').matches){document.querySelector('meta[name=viewport]').setAttribute('content','width=1280,user-scalable=yes');var r=document.documentElement;r.className+=' ph';r.style.setProperty('--pz',Math.min(4,1280/Math.max(w,320)))}}catch(e){}})();
 </script>
+<script>document.documentElement.className+=' rvon'</script>
 <title>WEBS JOEL // Diseño Web & Desarrollo</title>
 <meta name="description" content="Webs Joel: diseño web y desarrollo con estilos premium.">
 <meta name="color-scheme" content="light dark">
@@ -176,6 +177,69 @@ header#inicio.hero{aspect-ratio:3/2;max-height:none}
 .sx{padding-top:52px}
 #trg{grid-template-columns:1fr}#trg .gi{border-right:0;border-bottom:1px solid var(--ln)}#trg .gi:last-child{border-bottom:0}
 }
+
+/* ===== ANIMACIONES (basadas en el video) ===== */
+:root{--e:cubic-bezier(.2,.7,.2,1)}
+html{scroll-padding-top:92px}
+/* Menú flotante tipo píldora */
+.nav{top:0;background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;padding:10px 0;pointer-events:none}
+.nav .in{pointer-events:auto;width:min(1180px,100% - 24px);height:58px;padding:0 10px 0 18px;border-radius:999px;background:rgba(8,12,8,.72);backdrop-filter:blur(14px) saturate(1.3);-webkit-backdrop-filter:blur(14px) saturate(1.3);border:1px solid var(--ln);box-shadow:0 10px 30px rgba(0,0,0,.45);transition:box-shadow .35s,border-color .35s}
+.nav.sc .in{border-color:color-mix(in srgb,var(--ac) 42%,transparent);box-shadow:0 10px 34px rgba(0,0,0,.55),0 0 26px color-mix(in srgb,var(--ac) 14%,transparent)}
+.nav .ind{position:absolute;z-index:0;top:0;left:0;height:100%;border-radius:999px;background:var(--ac);box-shadow:0 0 22px color-mix(in srgb,var(--ac) 55%,transparent);opacity:0;pointer-events:none;transition:transform .38s var(--e),width .38s var(--e),opacity .25s}
+.nav ul a{position:relative;z-index:1}
+.nav ul a:hover{background:none}
+.nav ul a.on{color:#071004}
+@media(min-width:861px){.nav ul{position:relative}}
+@media(max-width:860px){
+.nav .ind{display:none}
+.nav ul a.on{background:var(--ac)}
+.nav ul{top:76px;left:12px;right:12px;border:1px solid var(--ln);border-radius:22px;pointer-events:auto}
+}
+/* Entrada del banner */
+html.rvon #hi:not(.ld){opacity:0}
+#hi.ld{animation:heroIn 1.5s var(--e) both}
+@keyframes heroIn{from{opacity:0;transform:scale(1.14);filter:blur(12px)}to{opacity:1;transform:none;filter:blur(0)}}
+/* Aparición escalonada con desenfoque (al hacer scroll) */
+html.rvon .rv:not(.in){opacity:0;filter:blur(10px);transform:translateY(22px) scale(.975);transition:none!important}
+html.rvon .rv.in{animation:rvIn .8s var(--e) var(--d,0ms) both}
+@keyframes rvIn{from{opacity:0;filter:blur(10px);transform:translateY(22px) scale(.975)}to{opacity:1;filter:blur(0);transform:none}}
+/* Línea bajo los títulos: crece al aparecer */
+.hd:after{transition:transform .9s var(--e) .25s}
+html.rvon .hd:not(.hd-in):after{transform:scaleX(0)}
+.gbox h2:after{transform-origin:left center}
+/* Botones: barrido blanco al pasar el mouse */
+.pill{position:relative;overflow:hidden;isolation:isolate}
+.pill:before{content:"";position:absolute;inset:0;z-index:-1;background:#fff;transform:scaleX(0);transform-origin:left center;transition:transform .4s var(--e)}
+.pill:hover:before{transform:scaleX(1)}
+.pill.cta:after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:40%;z-index:-1;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);animation:shine 4.8s ease-in-out 1.8s infinite}
+@keyframes shine{0%{left:-60%}32%,100%{left:140%}}
+/* Tarjetas: brillo que sigue al mouse */
+.gi,.card,.wk,.ct-i{position:relative}
+.gi:before,.card:before,.wk:before,.ct-i:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;opacity:0;transition:opacity .35s;background:radial-gradient(280px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--ac) 15%,transparent),transparent 62%)}
+.gi:hover:before,.card:hover:before,.wk:hover:before,.ct-i:hover:before{opacity:1}
+.gi .ge{transition:transform .35s var(--e),box-shadow .35s}
+.gi:hover .ge{transform:scale(1.1) rotate(-4deg);box-shadow:0 0 22px color-mix(in srgb,var(--ac) 45%,transparent)}
+.arw{transition:transform .2s}
+.arw:hover{transform:translateY(-50%) scale(1.12)}
+/* Botón de WhatsApp: onda pulsante */
+.wa:after{content:"";position:absolute;inset:-1px;border-radius:50%;border:2px solid var(--ac);pointer-events:none;animation:ring 3.2s ease-out infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.7);opacity:0}}
+/* Respuestas a acciones: elegir plan, abrir pregunta, abrir imagen */
+.card.on{animation:pick .55s var(--e)}
+@keyframes pick{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 60%,transparent)}100%{box-shadow:0 0 0 22px transparent}}
+.faq details[open] p{animation:faqIn .4s var(--e)}
+@keyframes faqIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.lb.on{animation:fadeIn .25s ease}
+.lb.on img{animation:zoomIn .4s var(--e)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes zoomIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+/* Sin movimiento si la persona lo prefiere */
+@media(prefers-reduced-motion:reduce){
+html.rvon .rv:not(.in){opacity:1;filter:none;transform:none}
+html.rvon .rv.in,#hi.ld,.wa:after,.pill.cta:after,.card.on,.lb.on,.lb.on img,.faq details[open] p{animation:none!important}
+html.rvon .hd:after{transform:none!important;transition:none}
+.nav .ind{transition:none}
+}
 </style>
 <meta property="og:type" content="website">
 <meta property="og:title" content="WEBS JOEL // Diseño Web & Desarrollo">
@@ -272,6 +336,55 @@ function render(c){
 fetch('content.json?v='+Date.now()).then(function(r){return r.json()}).then(function(c){if(!window.__pv)render(c)}).catch(function(){});
 /* Vista previa en vivo desde el panel admin (solo dentro de su marco y del mismo sitio) */
 addEventListener('message',function(e){if(e.origin!==location.origin||parent===window||!e.data||!e.data.wjPreview)return;window.__pv=1;try{render(e.data.cfg)}catch(x){}});
+</script>
+<script>
+(function(){
+ var d=document,$=function(i){return d.getElementById(i)};
+ /* --- Entrada del banner --- */
+ var hi=$('hi');if(hi){hi.addEventListener('load',function(){hi.classList.add('ld')});if(hi.complete&&hi.getAttribute('src'))hi.classList.add('ld')}
+ /* --- Menú: indicador que se desliza + sección activa --- */
+ var nav=$('nav'),ul=$('nlist'),links=[].slice.call(ul.querySelectorAll('a')),ind=d.createElement('span'),cur=null,hov=null;
+ ind.className='ind';ul.appendChild(ind);
+ function place(a){if(!a||getComputedStyle(ind).display==='none'){ind.style.opacity=0;return}ind.style.width=a.offsetWidth+'px';ind.style.transform='translateX('+a.offsetLeft+'px)';ind.style.opacity=1}
+ function sync(){var t=hov||cur;links.forEach(function(a){a.classList.toggle('on',a===t)});place(t)}
+ links.forEach(function(a){a.addEventListener('mouseenter',function(){hov=a;sync()})});
+ ul.addEventListener('mouseleave',function(){hov=null;sync()});
+ var tick=false;
+ function spy(){tick=false;var y=innerHeight*.4,best=null;
+  links.forEach(function(a){var s=d.querySelector(a.getAttribute('href'));if(s&&s.offsetParent!==null&&s.getBoundingClientRect().top<=y)best=a});
+  nav.classList.toggle('sc',scrollY>20);if(best!==cur){cur=best;sync()}}
+ addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(spy)}},{passive:true});
+ addEventListener('resize',function(){sync();spy()});addEventListener('load',function(){sync();spy()});
+ if(d.fonts&&d.fonts.ready)d.fonts.ready.then(function(){sync()});
+ spy();
+ /* --- Aparición al hacer scroll (también funciona con la vista previa del admin) --- */
+ if(!('IntersectionObserver' in window)||!window.MutationObserver)return;
+ var HD='.sx h1,.sx h2,.intro h2,.works h2,.ct-s h2';
+ var SEL=HD+',.works-s,.intro p,.lead .cta,.ldn,.gi,.card,.wk,.gbox,.promo,.faq details,.ct-i';
+ var io=new IntersectionObserver(function(es){
+  var k=0;
+  es.forEach(function(e){
+   if(!e.isIntersecting)return;var el=e.target;io.unobserve(el);
+   var base=el.matches('.gi,.card,.wk,.faq details,.ct-i')?120:el.matches('.works-s,.intro p')?90:0;
+   el.style.setProperty('--d',(base+Math.min(k,6)*90)+'ms');k++;
+   if(el.classList.contains('hd'))el.classList.add('hd-in');
+   if(!el.classList.contains('rv'))return;
+   el.classList.add('in');
+   var done=function(){el.classList.remove('rv','in');el.style.removeProperty('--d')};
+   el.addEventListener('animationend',function(ev){if(ev.target===el)done()});
+   setTimeout(done,2600);
+  });
+ },{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+ function scan(){
+  d.querySelectorAll(SEL).forEach(function(el){
+   if(el.dataset.rv)return;
+   var p=el.parentElement&&el.parentElement.closest('.gbox,.promo');if(p)return;
+   el.dataset.rv=1;el.classList.add('rv');if(el.matches(HD))el.classList.add('hd');io.observe(el)})}
+ new MutationObserver(scan).observe(d.body,{childList:true,subtree:true});
+ scan();
+ /* --- Brillo que sigue al mouse --- */
+ d.addEventListener('pointermove',function(e){var t=e.target.closest&&e.target.closest('.gi,.card,.wk,.ct-i');if(!t)return;var r=t.getBoundingClientRect();t.style.setProperty('--mx',(e.clientX-r.left)+'px');t.style.setProperty('--my',(e.clientY-r.top)+'px')},{passive:true});
+})();
 </script>
 </body>
 </html>
