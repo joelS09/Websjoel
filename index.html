@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--ac:#a3e635;--ac2:#7fbf1f;--dark:#050705;--bg:#050705;--pn:#0b0f0b;--pn2:#101610;--ln:rgba(255,255,255,.09);--lna:color-mix(in srgb,var(--ac) 38%,transparent);--tx:#eef2ea;--mu:#98a493;--r:14px;--ease:cubic-bezier(.2,.7,.2,1)}
+:root{--on:#0a1204;--ac:#a3e635;--ac2:#7fbf1f;--dark:#050705;--bg:#050705;--pn:#0b0f0b;--pn2:#101610;--ln:rgba(255,255,255,.09);--lna:color-mix(in srgb,var(--ac) 38%,transparent);--tx:#eef2ea;--mu:#98a493;--r:14px;--ease:cubic-bezier(.2,.7,.2,1)}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:70px;-webkit-text-size-adjust:100%}
 body{font-family:Inter,system-ui,sans-serif;color:var(--tx);background:var(--bg);overflow-x:hidden;line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -30,13 +30,13 @@ svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:1.7;stroke
 .grid{position:absolute;inset:0;background-image:linear-gradient(var(--ln) 1px,transparent 1px),linear-gradient(90deg,var(--ln) 1px,transparent 1px);background-size:56px 56px;opacity:.35;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 20%,#000,transparent 75%);mask-image:radial-gradient(ellipse 70% 60% at 50% 20%,#000,transparent 75%)}
 #prog{position:fixed;left:0;top:0;height:2px;width:100%;background:var(--ac);transform:scaleX(0);transform-origin:left;z-index:60;box-shadow:0 0 10px var(--ac)}
 /* botones */
-.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;background:var(--ac);color:#0a1204;font-weight:600;font-size:.9rem;padding:12px 22px;border-radius:10px;border:0;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:var(--on);font-weight:600;font-size:.9rem;padding:12px 22px;border-radius:10px;border:0;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s}
 .btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px -8px var(--ac)}
 .btn:after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);transition:left .6s}
 .btn:hover:after{left:130%}
 .btn .i{transition:transform .25s}.btn:hover .i{transform:translateX(3px)}
 .btn.s{padding:9px 16px;font-size:.82rem}
-.btn.g{background:transparent;color:var(--tx);border:1px solid var(--ln)}.btn.g:hover{border-color:var(--lna);box-shadow:none}
+.btn.g{background:none;color:var(--tx);border:1px solid var(--ln)}.btn.g:hover{border-color:var(--lna);box-shadow:none}
 .btn.off{opacity:.5}
 /* menu */
 .nav{position:sticky;top:0;z-index:50;background:rgba(5,7,5,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--ln)}
@@ -129,7 +129,7 @@ header#inicio:before{content:"";position:absolute;inset:0;z-index:2;background:l
 .stp:before{content:"";position:absolute;left:12%;right:12%;top:41px;height:1px;background:linear-gradient(90deg,var(--ac),var(--lna));transform:scaleX(0);transform-origin:left;transition:transform 1.4s var(--ease) .3s}
 .stp.in:before{transform:scaleX(1)}
 .stp .cd{text-align:center;padding:22px 20px}
-.stp .n{display:grid;place-items:center;width:38px;height:38px;margin:0 auto;border-radius:50%;background:var(--ac);color:#0a1204;font-family:'Space Grotesk',sans-serif;font-weight:700;position:relative;box-shadow:0 0 0 6px var(--bg),0 0 22px -4px var(--ac)}
+.stp .n{display:grid;place-items:center;width:38px;height:38px;margin:0 auto;border-radius:50%;background:var(--ac);color:var(--on);font-family:'Space Grotesk',sans-serif;font-weight:700;position:relative;box-shadow:0 0 0 6px var(--bg),0 0 22px -4px var(--ac)}
 /* trabajos */
 .wks{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
 .wk{position:relative;border-radius:var(--r);overflow:hidden;background:var(--pn);border:1px solid var(--ln);cursor:zoom-in;transition:border-color .3s,transform .4s var(--ease);display:flex;flex-direction:column;text-align:left}
@@ -148,7 +148,7 @@ header#inicio:before{content:"";position:absolute;inset:0;z-index:2;background:l
 .lb button{position:absolute;top:16px;right:18px;width:42px;height:42px;border-radius:50%;border:1px solid var(--ln);background:rgba(255,255,255,.08);color:#fff;font-size:1.1rem;cursor:pointer}
 /* garantia */
 .gbox{position:relative;overflow:hidden;display:flex;align-items:center;gap:26px;padding:30px 32px;border-radius:var(--r);background:linear-gradient(120deg,var(--pn),color-mix(in srgb,var(--ac) 9%,var(--pn)));border:1px solid var(--ln)}
-.gem{display:grid;place-items:center;flex:0 0 76px;height:76px;border-radius:50%;border:1px solid var(--lna);color:var(--ac);font-size:2rem;background:color-mix(in srgb,var(--ac) 8%,transparent);animation:pl 3.4s ease-in-out infinite}
+.gem{display:grid;place-items:center;flex:none;width:76px;height:76px;aspect-ratio:1/1;border-radius:50%;border:1px solid var(--lna);color:var(--ac);font-size:2rem;background:color-mix(in srgb,var(--ac) 8%,transparent);animation:pl 3.4s ease-in-out infinite}
 @keyframes pl{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--ac) 30%,transparent)}50%{box-shadow:0 0 0 14px transparent}}
 .gbox h2{font-size:clamp(1.3rem,2.8vw,1.8rem);font-weight:600;line-height:1.15;text-align:left;white-space:pre-line}
 .gbox p{margin:10px 0 18px;color:var(--mu);white-space:pre-line}
@@ -180,7 +180,7 @@ header#inicio:before{content:"";position:absolute;inset:0;z-index:2;background:l
 .ctg{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;max-width:720px;margin:0 auto;text-align:left}
 .ct{position:relative;overflow:hidden;display:flex;align-items:center;gap:14px;padding:18px 20px;border-radius:var(--r);background:var(--pn);border:1px solid var(--ln);transition:border-color .3s,transform .4s var(--ease);min-width:0}
 .ct:hover{border-color:var(--lna);transform:translateY(-3px)}
-.ct b{display:grid;place-items:center;flex:0 0 44px;height:44px;border-radius:10px;background:var(--ac);color:#0a1204;font-size:1.2rem;position:relative}
+.ct b{display:grid;place-items:center;flex:0 0 44px;height:44px;border-radius:10px;background:var(--ac);color:var(--on);font-size:1.2rem;position:relative}
 .ct b.im{background:transparent;overflow:hidden}.ct b.im img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
 .ct small{display:block;font-size:.68rem;letter-spacing:.12em;font-weight:600;color:var(--ac);position:relative}
 .ct span{display:block;font-weight:600;font-size:1.02rem;overflow-wrap:anywhere;position:relative}
@@ -259,7 +259,7 @@ function render(c){
  var esc=function(t){return String(t==null?'':t).replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})};
  var rt=function(t){return esc(t).replace(/\{\{(#[0-9a-fA-F]{3,8})\|([\s\S]+?)\}\}/g,'<span style="color:$1">$2</span>').replace(/\[\[([\s\S]+?)\]\]/g,'<span class="hl">$1</span>')},st=function(t){return String(t==null?'':t).replace(/\{\{#[0-9a-fA-F]{3,8}\|([\s\S]+?)\}\}/g,'$1').replace(/\[\[([\s\S]+?)\]\]/g,'$1')};
  var th=c.theme||{},rs=document.documentElement.style;
- if(th.accent)rs.setProperty('--ac',th.accent);if(th.accent2)rs.setProperty('--ac2',th.accent2);if(th.dark){rs.setProperty('--dark',th.dark);rs.setProperty('--bg',th.dark)}
+ if(th.accent){rs.setProperty('--ac',th.accent);var hx=th.accent.replace('#','');if(hx.length===3)hx=hx.replace(/./g,'$&$&');var lm=(.299*parseInt(hx.substr(0,2),16)+.587*parseInt(hx.substr(2,2),16)+.114*parseInt(hx.substr(4,2),16));rs.setProperty('--on',lm>150?'#0a1204':'#ffffff')}if(th.accent2)rs.setProperty('--ac2',th.accent2);if(th.dark){rs.setProperty('--dark',th.dark);rs.setProperty('--bg',th.dark)}
  var num=String(c.whatsapp).replace(/\D/g,''),wa=function(t){return'https://wa.me/'+num+'?text='+encodeURIComponent(t||'')},sel=null;
  if(c.site){document.title=c.site.title;var md=document.querySelector('meta[name=description]');if(md)md.content=c.site.description}
  var b=c.brand||{};
