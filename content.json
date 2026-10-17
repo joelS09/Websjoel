@@ -2,7 +2,7 @@
  "whatsapp": "51977368277",
  "waMessage": "Hola, quisiera mi sitio web",
  "footer": "WEBS JOEL · Diseño Web & Desarrollo",
- "plansButton": "Quiero este plan ➔",
+ "plansButton": "Quiero este plan",
  "site": {
   "title": "WEBS JOEL // Páginas web profesionales que traen clientes",
   "description": "Páginas web profesionales para tu negocio: diseño moderno, rápido y adaptado a celular. Pide tu cotización por WhatsApp y empieza a conseguir más clientes.",
@@ -26,7 +26,7 @@
  "lead": {
   "title": "Tu negocio abierto las 24 horas.\n[[Aunque tú duermas.]]",
   "subtitle": "Mientras descansas, tu página web atiende, convence y recibe pedidos por WhatsApp. Diseño profesional, listo en pocos días y a un precio que se recupera con tu primer cliente nuevo.",
-  "button": "Ver planes y precios ➔",
+  "button": "Ver planes y precios",
   "note": "Sin contratos largos · Sin costos ocultos · Te respondemos el mismo día",
   "items": [
    {
@@ -145,15 +145,17 @@
   "items": [
    {
     "image": "trabajos/1792197984757-0.webp",
-    "title": "{{#ffc83d|Anto's Barber }}https://webjoel90911.github.io/Tony-Barber-/",
+    "title": "Anto's Barber",
     "desc": "Reserva cita para cortes de cabello",
-    "visible": true
+    "visible": true,
+    "link": "https://webjoel90911.github.io/Tony-Barber-/"
    },
    {
     "image": "trabajos/1792197986567-1.webp",
-    "title": "{{#2ee6a6|Tienda de apps}}\nhttps://joels09.github.io/modsapk/",
+    "title": "Tienda de apps",
     "desc": "Apps store",
-    "visible": true
+    "visible": true,
+    "link": "https://joels09.github.io/modsapk/"
    }
   ]
  },
@@ -161,13 +163,13 @@
   "emoji": "",
   "title": "Cero riesgo: [[tu satisfacción garantizada]]",
   "text": "No publicamos nada hasta que tú lo apruebes. Si algo no te convence, lo ajustamos contigo hasta que quede como lo imaginaste.",
-  "button": "Hablar por WhatsApp ➔"
+  "button": "Hablar por WhatsApp"
  },
  "promo": {
-  "tag": "⏳ CUPOS LIMITADOS ESTA SEMANA",
-  "title": "RESERVA HOY Y ASEGURA TU LUGAR",
+  "tag": "Cupos limitados esta semana",
+  "title": "Reserva hoy y asegura tu lugar",
   "text": "Elige tu plan y te escribimos por WhatsApp para empezar. Atendemos pocos proyectos a la vez para cuidar la calidad de cada web.",
-  "button": "¡RESERVAR POR WHATSAPP! ➔",
+  "button": "Reservar por WhatsApp",
   "empty": "Primero elige un plan arriba ↑",
   "selected": "Plan elegido:",
   "change": "Cambiar plan"
@@ -205,7 +207,7 @@
   "phone": "977 368 277",
   "phoneIcon": "",
   "emailLabel": "CORREO ELECTRÓNICO",
-  "email": "joelsatornicio01@gmail.com ",
+  "email": "joelsatornicio01@gmail.com",
   "emailIcon": ""
  },
  "waButton": {
