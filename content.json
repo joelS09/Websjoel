@@ -14,7 +14,8 @@
   "accent": "#a3e635",
   "accent2": "#7fbf1f",
   "dark": "#000000",
-  "tintIcons": true
+  "tintIcons": true,
+  "logoStyle": "linea"
  },
  "brand": {
   "name1": "WEBS",
