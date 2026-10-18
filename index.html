@@ -391,6 +391,31 @@ header#inicio{aspect-ratio:3/2;margin-top:14px;border-radius:14px}
 .lead .cta{border-radius:99px}
 .btn{border-radius:99px}
 }
+
+/* ===== PROMOCIONES GRANDES + TRABAJOS PEQUEÑOS ===== */
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;text-align:left}
+.pc{position:relative;overflow:hidden;display:flex;flex-direction:column;border-radius:18px;border:1px solid var(--ln);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.008) 60%),var(--pn);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);transition:border-color .3s,transform .4s var(--ease)}
+.pc:hover{border-color:var(--lna);transform:translateY(-3px)}
+.pim{aspect-ratio:16/10;background:#060607;border-bottom:1px solid var(--ln);overflow:hidden}
+.pim img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .8s var(--ease)}
+.pim.fit img{object-fit:contain;object-position:center}
+.pc:hover .pim img{transform:scale(1.03)}
+.pbd{padding:20px 22px 22px;display:flex;flex-direction:column;gap:12px;flex:1}
+.ph2{display:flex;justify-content:space-between;align-items:flex-end;gap:14px}
+.pc h3{font-size:1.6rem;font-weight:600;letter-spacing:-.04em;margin-top:10px;line-height:1.1;white-space:pre-line}
+.pc .pr{font-size:2rem;line-height:1;white-space:nowrap}
+.pc p{color:var(--mu);font-size:.92rem;margin:0;flex:1;white-space:pre-line}
+.pc .acts{margin-top:4px}
+#trabajos .sh{text-align:left;margin-bottom:22px}
+#trabajos .sh h2{font-size:clamp(1.4rem,2.6vw,1.9rem)}
+#trabajos .sh p{margin-left:0;font-size:.92rem}
+.wks{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.wk{border-radius:12px}
+.wk .im{aspect-ratio:16/10}
+.wk .bd2{padding:12px 14px 14px}
+.wk h4{font-size:.95rem}.wk p{font-size:.8rem}
+.wk .lk{font-size:.76rem;margin-top:8px}
+@media(max-width:760px){.pgrid{grid-template-columns:1fr}.pc h3{font-size:1.4rem}.pc .pr{font-size:1.7rem}.wks{grid-template-columns:repeat(2,1fr)!important;gap:10px}}
 </style>
 
 <meta property="og:type" content="website">
@@ -410,12 +435,12 @@ header#inicio{aspect-ratio:3/2;margin-top:14px;border-radius:14px}
  <ul id="nlist"><li><a href="#inicio" data-top data-s="inicio">Inicio</a></li><li><a href="#planes" data-s="planes">Planes</a></li><li><a href="#trabajos" data-s="trabajos">Trabajos</a></li><li><a href="#faq" data-s="faq">Preguntas</a></li><li><a href="#datos" data-s="datos">Contacto</a></li></ul><a class="btn s navcta" id="navcta" href="#contacto">Cotizar</a></div></nav>
 <header id="inicio"><img id="hi" alt="Webs Joel"></header>
 <section class="lead" id="lead"><div class="wrap"><h1 id="ldt"></h1><p class="sub rv" id="lds" style="--d:.5s"></p><div class="rv" style="--d:.65s"><a class="btn cta" id="ldb" href="#planes"></a><small class="note" id="ldn"></small></div><div id="trg" class="rv" style="--d:.8s"></div></div></section>
-<section class="sec" id="pain"><div class="wrap"><div class="sh rv"><span class="ey">Por qué una web</span><h2 id="pnt"></h2><p id="pns"></p></div><div class="cds" id="png"></div></div></section>
-<section class="sec" id="planes"><div class="wrap"><div class="sh rv"><span class="ey">Planes</span><h2 id="it"></h2><p id="is"></p></div>
- <div id="plw" class="auto rv"><div class="pl"><div class="stage sp"><div class="bar"><i></i><i></i><i></i><span id="stl">webs-joel</span></div><div class="slw" id="slw"></div></div><div><div class="pinf" id="pinf"></div><div class="nv"><button id="pprev" aria-label="Anterior"><svg class="i" viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><button id="pnext" aria-label="Siguiente"><svg class="i" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><span class="cnt" id="pcnt"></span></div></div></div><div class="ptabs" id="ptabs"></div></div></div></section>
-<section class="sec" id="proceso"><div class="wrap"><div class="sh rv"><span class="ey">Proceso</span><h2 id="prt"></h2><p id="prs"></p></div><div class="stp rv" id="prg"></div></div></section>
+<section class="sec" id="planes"><div class="wrap"><div class="sh rv"><span class="ey">Promociones</span><h2 id="it"></h2><p id="is"></p></div>
+ <div class="pgrid" id="pgrid"></div></div></section>
 <section class="sec" id="trabajos"><div class="wrap"><div class="sh rv"><span class="ey">Portafolio</span><h2 id="wt"></h2><p id="ws"></p></div><div class="wks" id="wg"></div></div></section>
 <div class="lb" id="lb"><button aria-label="Cerrar">✕</button><img alt=""><h3></h3><p></p></div>
+<section class="sec" id="pain"><div class="wrap"><div class="sh rv"><span class="ey">Por qué una web</span><h2 id="pnt"></h2><p id="pns"></p></div><div class="cds" id="png"></div></div></section>
+<section class="sec" id="proceso"><div class="wrap"><div class="sh rv"><span class="ey">Proceso</span><h2 id="prt"></h2><p id="prs"></p></div><div class="stp rv" id="prg"></div></div></section>
 <section class="sec" id="garantia"><div class="wrap"><div class="gbox rv sp"><div class="gem" id="gem"></div><div style="position:relative"><h2 id="gt"></h2><p id="gp"></p><a class="btn" id="gb" href="#contacto"></a></div></div></div></section>
 <section class="sec" id="contacto"><div class="wrap"><div class="promo rv"><div><h5 id="pt"></h5><h2 id="ph"></h2><p id="pp"></p><div class="sel" id="sel"></div><a href="#planes" class="btn off" id="pb"></a></div></div></div></section>
 <section class="sec" id="faq"><div class="wrap"><div class="sh rv"><span class="ey">FAQ</span><h2 id="fqt"></h2><p id="fqs"></p></div><div class="faq rv" id="fql"></div></div></section>
@@ -442,8 +467,8 @@ var LEAD=['zap','shield','chat','mobile'],PAIN=['search','flag','trend'];
  document.addEventListener('pointermove',function(e){var t=e.target.closest&&e.target.closest('.sp');if(!t)return;var r=t.getBoundingClientRect();t.style.setProperty('--mx',(e.clientX-r.left)+'px');t.style.setProperty('--my',(e.clientY-r.top)+'px')},{passive:true});
  document.addEventListener('keydown',function(e){if(e.key==='Escape')document.getElementById('lb').classList.remove('on')});
  /* menu activo (barra superior y barra inferior) */
- var MAP=[['inicio','inicio'],['lead','inicio'],['pain','inicio'],['planes','planes'],['proceso','planes'],['trabajos','trabajos'],['garantia','trabajos'],['contacto','datos'],['faq','faq'],['datos','datos']],act=null;
- window.__spy=function(){var y=innerHeight*.4,cur='inicio';MAP.forEach(function(m){var e=document.getElementById(m[0]);if(e&&e.offsetParent!==null&&e.getBoundingClientRect().top<=y)cur=m[1]});
+ var MAP=[['inicio','inicio'],['lead','inicio'],['pain','trabajos'],['planes','planes'],['proceso','trabajos'],['trabajos','trabajos'],['garantia','trabajos'],['contacto','datos'],['faq','faq'],['datos','datos']],act=null;
+ window.__spy=function(){var y=innerHeight*.4,cur='inicio';var best=-1e9;MAP.forEach(function(m){var e=document.getElementById(m[0]);if(e&&e.offsetParent!==null){var t=e.getBoundingClientRect().top;if(t<=y&&t>best){best=t;cur=m[1]}}});
   if(innerHeight+scrollY>=document.documentElement.scrollHeight-4)cur='datos';
   if(cur===act)return;act=cur;[].forEach.call(document.querySelectorAll('[data-s]'),function(a){a.classList.toggle('on',a.dataset.s===cur)})};
  addEventListener('scroll',function(){requestAnimationFrame(window.__spy)},{passive:true});window.__spy();
@@ -481,22 +506,8 @@ function render(c){
  var i0=c.intro||{title:'',subtitle:''};$('it').innerHTML=rt(i0.title);$('is').innerHTML=rt(i0.subtitle);
  var pb=cl(c.plansButton||'Pedir'),vis=(c.plans||[]).filter(function(p){return p.visible!==false}),N=vis.length,cur=0;
  var pr=c.promo||{};
- $('slw').innerHTML=vis.map(function(p,i){return'<div class="sl'+(p.contain?' fit':'')+(i===0?' on':'')+'">'+(p.image?'<img src="'+esc(p.image)+'" alt="'+esc(st(p.name))+'" '+(i?'loading="lazy"':'')+'>':'')+'</div>'}).join('');
- $('pinf').innerHTML=vis.map(function(p,i){return'<div class="pi'+(i===0?' on':'')+'"><span class="bd">'+esc(p.badge)+'</span><h3>'+rt(p.name)+'</h3><div class="pr" data-v="'+esc(p.price)+'">'+esc(p.price)+'</div><p>'+rt(p.desc)+'</p><div class="acts"><a class="btn pick" href="#contacto">'+esc(pb)+arrow+'</a></div></div>'}).join('');
- $('ptabs').innerHTML=vis.map(function(p,i){return'<button class="tab'+(i===0?' on':'')+'"><small>'+esc(p.badge)+'</small><b>'+esc(st(p.name))+'<span>'+esc(p.price)+'</span></b><i class="pg"></i></button>'}).join('');
- $('plw').style.display=N?'':'none';
- var sl=q('.sl'),pi=q('.pi'),tb=q('.tab'),plw=$('plw');
- function count(i){var el=pi[i]&&pi[i].querySelector('.pr');if(!el)return;var v=el.dataset.v,m=v.match(/\d+/);if(!m||matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=v;return}
-  var to=+m[0],t0=performance.now();cancelAnimationFrame(el._r);(function f(t){var k=Math.min(1,(t-t0)/650),e=1-Math.pow(1-k,3);el.textContent=v.replace(m[0],Math.round(to*e));if(k<1)el._r=requestAnimationFrame(f);else el.textContent=v})(t0)}
- function show(i,user){if(!N)return;cur=(i+N)%N;sl.forEach(function(e,j){e.classList.toggle('on',j===cur)});pi.forEach(function(e,j){e.classList.toggle('on',j===cur)});tb.forEach(function(e,j){e.classList.toggle('on',j===cur)});$('pcnt').textContent='0'+(cur+1)+' / 0'+N;$('stl').textContent='webs-joel / '+st(vis[cur].name).toLowerCase().replace(/\s+/g,'-');count(cur);
-  if(user)plw.classList.remove('auto');else{plw.classList.remove('auto');void plw.offsetWidth;plw.classList.add('auto')}}
- tb.forEach(function(e,j){e.onclick=function(){show(j,true)}});
- $('pprev').onclick=function(){show(cur-1,true)};$('pnext').onclick=function(){show(cur+1,true)};
- tb.forEach(function(e){e.querySelector('.pg').addEventListener('animationend',function(){show(cur+1,false)})});
- var tx=null,stg=q('.stage')[0];stg.ontouchstart=function(e){tx=e.touches[0].clientX};stg.ontouchend=function(e){if(tx==null)return;var d=e.changedTouches[0].clientX-tx;tx=null;if(Math.abs(d)>40)show(cur+(d<0?1:-1),true)};
- if(window.__po)window.__po.disconnect();
- if('IntersectionObserver' in window){window.__po=new IntersectionObserver(function(es){plw.classList.toggle('off',!es[0].isIntersecting)},{threshold:.25});window.__po.observe(plw)}
- show(0,false);
+ $('pgrid').innerHTML=vis.map(function(p,i){return'<article class="pc sp rv" style="--d:'+(i*.08)+'s"><div class="pim'+(p.contain?' fit':'')+'">'+(p.image?'<img src="'+esc(p.image)+'" alt="'+esc(st(p.name))+'" '+(i>1?'loading="lazy"':'')+'>':'')+'</div><div class="pbd"><div class="ph2"><div><span class="bd">'+esc(p.badge)+'</span><h3>'+rt(p.name)+'</h3></div><div class="pr">'+esc(p.price)+'</div></div><p>'+rt(p.desc)+'</p><div class="acts"><a class="btn pick" href="#contacto">'+esc(pb)+arrow+'</a></div></div></article>'}).join('');
+ $('pgrid').style.display=N?'':'none';
  /* oferta y seleccion */
  $('pt').innerHTML=rt(pr.tag);$('ph').innerHTML=rt(pr.title);$('pp').innerHTML=rt(pr.text);$('pb').innerHTML=esc(cl(pr.button))+arrow;
  var T=function(t,p){return String(t||'').replace(/\{plan\}/g,st(p.name)).replace(/\{precio\}/g,p.price)};
