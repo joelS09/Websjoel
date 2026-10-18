@@ -16,8 +16,8 @@
   "dark": "#000000",
   "tintIcons": true,
   "logoStyle": "linea",
-  "rgb": false,
-  "rgbSpeed": 4
+  "rgb": true,
+  "rgbSpeed": 3
  },
  "brand": {
   "name1": "WEBS",
@@ -160,6 +160,20 @@
     "desc": "Apps store",
     "visible": true,
     "link": "https://joels09.github.io/modsapk/"
+   },
+   {
+    "image": "trabajos/1792338951383-2.webp",
+    "title": "{{#ff8a1f|Restaurant}}",
+    "desc": "Restaurante ",
+    "visible": true,
+    "link": "https://joels09.github.io/Restaurant/"
+   },
+   {
+    "image": "trabajos/1792338985606-3.webp",
+    "title": "{{#ff4d4d|Heladería}}",
+    "desc": "Heladería ",
+    "visible": true,
+    "link": "https://joels09.github.io/Helader-a/index.html"
    }
   ]
  },
