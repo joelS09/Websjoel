@@ -11,9 +11,9 @@
   "_v": 1792242364002
  },
  "theme": {
-  "accent": "#a3e635",
-  "accent2": "#7fbf1f",
-  "dark": "#000000"
+  "accent": "#ffffff",
+  "accent2": "#d4d4d8",
+  "dark": "#050505"
  },
  "brand": {
   "name1": "WEBS",
@@ -156,20 +156,6 @@
     "desc": "Apps store",
     "visible": true,
     "link": "https://joels09.github.io/modsapk/"
-   },
-   {
-    "image": "trabajos/1792308357241-2.webp",
-    "title": "Heladería",
-    "desc": "Sitio web para promocionar un producto ",
-    "visible": true,
-    "link": "https://joels09.github.io/Helader-a/index.html"
-   },
-   {
-    "image": "trabajos/1792309147945-3.webp",
-    "title": "Restaurant",
-    "desc": "Restaurante 🍴 se reservan mesas e informan precios ",
-    "visible": true,
-    "link": "https://joels09.github.io/Restaurant/"
    }
   ]
  },
