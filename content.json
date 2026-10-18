@@ -163,6 +163,13 @@
     "desc": "Sitio web para promocionar un producto ",
     "visible": true,
     "link": "https://joels09.github.io/Helader-a/index.html"
+   },
+   {
+    "image": "trabajos/1792309147945-3.webp",
+    "title": "Restaurant",
+    "desc": "Restaurante 🍴 se reservan mesas e informan precios ",
+    "visible": true,
+    "link": "https://joels09.github.io/Restaurant/"
    }
   ]
  },
