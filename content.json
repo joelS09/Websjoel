@@ -16,8 +16,8 @@
   "dark": "#000000",
   "tintIcons": true,
   "logoStyle": "linea",
-  "rgb": false,
-  "rgbSpeed": 4
+  "rgb": true,
+  "rgbSpeed": 3
  },
  "brand": {
   "name1": "WEBS",
