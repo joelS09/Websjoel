@@ -366,12 +366,12 @@ footer{margin-top:60px}
 <meta property="og:type" content="website">
 <meta property="og:title" content="JSDOCTYPE // Páginas web profesionales que traen clientes">
 <meta property="og:description" content="Páginas web profesionales para tu negocio: diseño moderno, rápido y adaptado a celular. Pide tu cotización por WhatsApp y empieza a conseguir más clientes.">
-<meta property="og:url" content="https://joels09.github.io/Websjoel/">
-<meta property="og:image" content="https://joels09.github.io/Websjoel/og-image.jpg?v=1792242364002">
+<meta property="og:url" content="https://joels09.github.io/jsdoctype/">
+<meta property="og:image" content="https://joels09.github.io/jsdoctype/og-image.jpg?v=1792242364002">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://joels09.github.io/Websjoel/og-image.jpg?v=1792242364002">
+<meta name="twitter:image" content="https://joels09.github.io/jsdoctype/og-image.jpg?v=1792242364002">
 </head>
 <body>
 <div id="pre"><div><div class="pt"><i>JSDOCTYPE</i></div><div class="pl2"><span class="pb"></span><small id="pn">0%</small></div></div></div>
@@ -598,7 +598,7 @@ function render(c){
   $('fql').innerHTML=(d.items||[]).filter(function(x){return x&&x.visible!==false&&x.q}).map(function(x,n){return'<div class="fq'+(n===0?' on':'')+'"><button aria-expanded="'+(n===0)+'">'+rt(x.q)+'</button><div class="fa"><div><p>'+rt(x.a)+'</p></div></div></div>'}).join('');
   Q('.fq button').forEach(function(bt){bt.onclick=function(){var f=bt.parentNode,o=!f.classList.contains('on');Q('.fq').forEach(function(z){z.classList.remove('on');z.firstChild.setAttribute('aria-expanded',false)});if(o){f.classList.add('on');bt.setAttribute('aria-expanded',true)}}})});
  /* contacto */
- var ct=c.contact||{},ph=String(ct.phone||'977 368 277').trim(),em=String(ct.email||'joelsatornicio01@gmail.com').trim();
+ var ct=c.contact||{},ph=String(ct.phone||'961 759 133').trim(),em=String(ct.email||'joelsatornicio01@gmail.com').trim();
  $('ctt').innerHTML=rt(ct.title||'Nuestro [[contacto]]');$('cts').innerHTML=rt(ct.subtitle||'Escríbenos y te respondemos lo antes posible.');
  $('ctpn').textContent=ph;$('ctp').href='https://wa.me/'+(num||('51'+ph.replace(/\D/g,'')))+'?text='+encodeURIComponent(c.waMessage||'Hola, quisiera mi sitio web');$('ctp').target='_blank';$('ctp').rel='noopener';
  $('cten').textContent=em;$('cte').href='mailto:'+em;
