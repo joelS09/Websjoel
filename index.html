@@ -376,12 +376,12 @@ html.gb[data-theme=light] .btn:not(.ghost){background:var(--gbtn);color:var(--on
 <meta property="og:type" content="website">
 <meta property="og:title" content="JSDOCTYPE // Páginas web profesionales que traen clientes">
 <meta property="og:description" content="Páginas web profesionales para tu negocio: diseño moderno, rápido y adaptado a celular. Pide tu cotización por WhatsApp y empieza a conseguir más clientes.">
-<meta property="og:url" content="https://joels09.github.io/Websjoel/">
-<meta property="og:image" content="https://joels09.github.io/Websjoel/og-image.jpg?v=1792242364002">
+<meta property="og:url" content="https://joels09.github.io/jsdoctype/">
+<meta property="og:image" content="https://joels09.github.io/jsdoctype/og-image.jpg?v=1792242364002">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://joels09.github.io/Websjoel/og-image.jpg?v=1792242364002">
+<meta name="twitter:image" content="https://joels09.github.io/jsdoctype/og-image.jpg?v=1792242364002">
 </head>
 <body>
 <div id="pre"><div><div class="pt"><i>JSDOCTYPE</i></div><div class="pl2"><span class="pb"></span><small id="pn">0%</small></div></div></div>
@@ -436,7 +436,7 @@ function hs(t){var h=0;for(var i=0;i<t.length;i+=7)h=(h*31+t.charCodeAt(i))|0;re
 function hue(hex){hex=hex.replace('#','');if(hex.length===3)hex=hex.replace(/./g,'$&$&');var r=parseInt(hex.substr(0,2),16)/255,g=parseInt(hex.substr(2,2),16)/255,b=parseInt(hex.substr(4,2),16)/255,mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn,h=0;if(d){h=mx===r?((g-b)/d)%6:mx===g?(b-r)/d+2:(r-g)/d+4;h*=60;if(h<0)h+=360}return{h:h,s:mx?d/mx:0}}
 function applyStyle(){
  var rs=document.documentElement.style,ac=/^#[0-9a-f]{6}$/i.test(CFGT.accent||'')?CFGT.accent:'#a3e635',lt=document.documentElement.dataset.theme==='light',bg=lt?(/^#[0-9a-f]{6}$/i.test(CFGT.light||'')?CFGT.light:'#ffffff'):(CFGT.dark||'#050705'),lg=CFGT.logoStyle==='neon'?'neon':'linea';
- rs.setProperty('--ac',ac);rs.removeProperty('--ac2');
+ rs.setProperty('--ac',ac);if(/^#[0-9a-f]{6}$/i.test(CFGT.accent2||'')&&!(CFGT.rgb&&!RM))rs.setProperty('--ac2',CFGT.accent2);else if(!(/^#[0-9a-f]{6}$/i.test(CFGT.accent2||'')))rs.removeProperty('--ac2');
  var hx=ac.replace('#',''),lm=.299*parseInt(hx.substr(0,2),16)+.587*parseInt(hx.substr(2,2),16)+.114*parseInt(hx.substr(4,2),16);
  rs.setProperty('--on',GR.btn?GR.on2:(lm>150?'#0a1204':'#ffffff'));
  rs.setProperty('--bg',bg);var tc=document.querySelector('meta[name=theme-color]');if(tc)tc.content=bg;
@@ -476,7 +476,7 @@ function rgbTick(t){if(!RGB.on)return;if(LITE&&t-RGB.lf<90){RGB.raf=requestAnima
  if(t-RGB.t0>=sp){RGB.from=RGB.to;RGB.to=RGB.from+45+Math.random()*50;RGB.t0=t;RGB.done=false}
  var k=Math.min(1,(t-RGB.t0)/(sp*.85)),e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,h=(((RGB.from+(RGB.to-RGB.from)*e)%360)+360)%360,hex=hsl2hex(h,.95,.58),rs=document.documentElement.style,
   hx=hex.replace('#',''),lm=.299*parseInt(hx.substr(0,2),16)+.587*parseInt(hx.substr(2,2),16)+.114*parseInt(hx.substr(4,2),16),lg=CFGT.logoStyle==='neon'?'neon':'linea';
- rs.setProperty('--ac',hex);rs.setProperty('--on',GR.btn?GR.on2:(lm>150?'#0a1204':'#ffffff'));rs.setProperty('--lh',(h-BASEH[lg])+'deg');rs.setProperty('--ls','1');pcol=hex;
+ rs.setProperty('--ac',hex);if(/^#[0-9a-f]{6}$/i.test(CFGT.accent2||'')){var o2=hue(CFGT.accent2).h-hue(CFGT.accent||'#a3e635').h;rs.setProperty('--ac2',hsl2hex((h+o2+360)%360,.9,.5))}rs.setProperty('--on',GR.btn?GR.on2:(lm>150?'#0a1204':'#ffffff'));rs.setProperty('--lh',(h-BASEH[lg])+'deg');rs.setProperty('--ls','1');pcol=hex;
  if(t-RGB.lt>(LITE?900:300)){RGB.lt=t;retint(true)}
  if(k>=1&&!RGB.done){RGB.done=true;retint()}
  RGB.raf=requestAnimationFrame(rgbTick)}
@@ -552,7 +552,7 @@ function fx(){var els=[].slice.call(Q('.rv:not(.in),.lead:not(.in),.stp:not(.in)
 function render(c){
  var esc=function(t){return String(t==null?'':t).replace(/[&<>"']/g,function(m){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]})};
  var rt=function(t){return esc(t).replace(/\{\{(#[0-9a-fA-F]{3,8})\|([\s\S]+?)\}\}/g,'<span style="color:$1">$2</span>').replace(/\[\[([\s\S]+?)\]\]/g,'<span class="hl">$1</span>')},st=function(t){return String(t==null?'':t).replace(/\{\{#[0-9a-fA-F]{3,8}\|([\s\S]+?)\}\}/g,'$1').replace(/\[\[([\s\S]+?)\]\]/g,'$1')};
- var th=c.theme||{};CFGT={accent:th.accent,dark:th.dark,light:th.light,mode:th.mode,logoStyle:th.logoStyle,tint:th.tintIcons!==false,rgb:th.rgb===true,rgbSpeed:th.rgbSpeed};
+ var th=c.theme||{};CFGT={accent:th.accent,accent2:th.accent2,dark:th.dark,light:th.light,mode:th.mode,logoStyle:th.logoStyle,tint:th.tintIcons!==false,rgb:th.rgb===true,rgbSpeed:th.rgbSpeed};
  var ti=th.tintIcons!==false,tg2=function(k,d){return th[k]===undefined?d:th[k]!==false};
  CFGT.tf=tg2('tintFavicon',ti);CFGT.tl=tg2('tintLogo',ti);CFGT.tc=tg2('tintContact',ti);CFGT.twa=tg2('tintWa',ti);
  var HC=document.documentElement.classList;HC.toggle('tw',th.tintWorks===true);HC.toggle('tp',th.tintPlans===undefined?th.tintWorks===true:th.tintPlans===true);HC.toggle('nh',th.tintHero===false);HC.toggle('np',th.tintPromo===false);
