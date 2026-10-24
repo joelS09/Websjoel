@@ -171,7 +171,7 @@
   ]
  },
  "works": {
-  "title": "Nuestros [[trabajos]]",
+  "title": "Nuestros [[trabajos y Diseños]]",
   "subtitle": "Algunos de los sitios web que hemos creado para nuestros clientes.",
   "items": [
    {
@@ -189,7 +189,7 @@
     "link": "https://joels09.github.io/modsapk/"
    },
    {
-    "image": "trabajos/1792442264629-2.webp",
+    "image": "trabajos/1792828609748-2.webp",
     "title": "{{#ff8a1f|Restaurante}} Plan Pro",
     "desc": " ",
     "visible": true,
