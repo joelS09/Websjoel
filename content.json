@@ -176,31 +176,80 @@
   "items": [
    {
     "image": "trabajos/1792197984757-0.webp",
-    "title": "{{#ffc83d|Anto's Barber}}",
-    "desc": "Reserva cita para cortes de cabello",
+    "title": "{{#ffc83d|Anto's Barber}} Plan Premium ",
+    "desc": "",
     "visible": true,
     "link": "https://webjoel90911.github.io/Tony-Barber-/"
    },
    {
     "image": "trabajos/1792197986567-1.webp",
-    "title": "{{#2ee6a6|Tienda de apps}}",
-    "desc": "Apps store",
+    "title": "{{#2ee6a6|Tienda de apps}} Plan Premium ",
+    "desc": "",
     "visible": true,
     "link": "https://joels09.github.io/modsapk/"
    },
    {
     "image": "trabajos/1792442264629-2.webp",
-    "title": "{{#ff8a1f|Restaurante}}",
-    "desc": "Revisa la carta y haz tu pedido ",
+    "title": "{{#ff8a1f|Restaurante}} Plan Pro",
+    "desc": " ",
     "visible": true,
     "link": "https://joels09.github.io/Restaurant/"
    },
    {
-    "image": "trabajos/1792442266532-3.webp",
-    "title": "{{#a66bff|Heladería}}",
-    "desc": "Revisa nuestras creaciones dulces ",
+    "image": "trabajos/1792815968743-3.webp",
+    "title": "{{#ff8a1f|Heladería}} Plan Básico S",
+    "desc": "",
     "visible": true,
-    "link": "https://joels09.github.io/Helader-a/index.html"
+    "link": ""
+   },
+   {
+    "image": "trabajos/1792815971162-4.webp",
+    "title": "{{#2b8cff|Diseño y moda}} Plan Pro",
+    "desc": "",
+    "visible": true,
+    "link": ""
+   },
+   {
+    "image": "trabajos/1792815973358-5.webp",
+    "title": "{{#ffc83d|Panadería}} Plan Básico S",
+    "desc": "",
+    "visible": true,
+    "link": ""
+   },
+   {
+    "image": "trabajos/1792815975040-6.webp",
+    "title": "{{#ff4d4d|Restaurante}} Plan Premium ",
+    "desc": "",
+    "visible": true,
+    "link": ""
+   },
+   {
+    "image": "trabajos/1792815977123-7.webp",
+    "title": "{{#2ee6a6|Productos Naturales }} Plan Básico S",
+    "desc": "",
+    "visible": true,
+    "link": ""
+   },
+   {
+    "image": "trabajos/1792815979430-8.webp",
+    "title": "{{#ff8a1f|Venta de platillos}} Plan Pro",
+    "desc": "",
+    "visible": true,
+    "link": ""
+   },
+   {
+    "image": "trabajos/1792815981304-9.webp",
+    "title": "{{#a66bff|Dulceria Plan}} Básico ",
+    "desc": "",
+    "visible": true,
+    "link": ""
+   },
+   {
+    "image": "trabajos/1792815983040-10.webp",
+    "title": "{{#a66bff|Estilista Plan}} Básico S",
+    "desc": "",
+    "visible": true,
+    "link": ""
    }
   ]
  },
