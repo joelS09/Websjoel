@@ -16,11 +16,34 @@
   "dark": "#0a0a12",
   "tintIcons": true,
   "logoStyle": "linea",
-  "rgb": true,
+  "rgb": false,
   "rgbSpeed": 3,
   "light": "#ffffff",
   "mode": "auto",
-  "tintWorks": false
+  "tintWorks": false,
+  "tintFavicon": false,
+  "tintLogo": false,
+  "tintHero": false,
+  "tintContact": true,
+  "tintWa": true,
+  "tintPlans": false,
+  "tintPromo": true,
+  "gradient": {
+   "on": false,
+   "angle": 135,
+   "colors": [
+    "#a3e635",
+    "#22d3ee",
+    "#8b5cf6"
+   ],
+   "targets": {
+    "buttons": true,
+    "text": true,
+    "logo": true,
+    "details": true,
+    "promo": true
+   }
+  }
  },
  "brand": {
   "name1": "JSDOCTYPE",
